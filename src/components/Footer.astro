@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import site from '../content/site.json';
 import Icon from './Icon.astro';
 import LogoMark from './LogoMark.astro';
@@ -12,7 +13,7 @@ const year = new Date().getFullYear();
   <div class="container-page">
     <div class="site-footer__inner">
       <div>
-        <a class="site-footer__brand" href="/">
+        <a class="site-footer__brand" href={withBase('/')}>
           <LogoMark class="brand__mark" />
           <span>
             <span class="site-footer__brand-name">CDPC Puchong</span>
@@ -41,23 +42,23 @@ const year = new Date().getFullYear();
       <div>
         <h2 class="footer-heading">Explore</h2>
         <ul class="footer-list">
-          <li><a href="/about">Who we are</a></li>
-          <li><a href="/beliefs">What we believe</a></li>
-          <li><a href="/leadership">Leadership</a></li>
-          <li><a href="/sermons">Sermons</a></li>
-          <li><a href="/news">News</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href={withBase('/about')}>Who we are</a></li>
+          <li><a href={withBase('/beliefs')}>What we believe</a></li>
+          <li><a href={withBase('/leadership')}>Leadership</a></li>
+          <li><a href={withBase('/sermons')}>Sermons</a></li>
+          <li><a href={withBase('/news')}>News</a></li>
+          <li><a href={withBase('/contact')}>Contact</a></li>
         </ul>
       </div>
 
       <div>
         <h2 class="footer-heading">Gather</h2>
         <ul class="footer-list">
-          <li><a href="/visit">Plan your visit</a></li>
-          <li><a href="/worship">Worship</a></li>
-          <li><a href="/events">Events</a></li>
-          <li><a href="/where-we-gather">Where we gather</a></li>
-          <li><a href="/childrens-library">Children's Library</a></li>
+          <li><a href={withBase('/visit')}>Plan your visit</a></li>
+          <li><a href={withBase('/worship')}>Worship</a></li>
+          <li><a href={withBase('/events')}>Events</a></li>
+          <li><a href={withBase('/where-we-gather')}>Where we gather</a></li>
+          <li><a href={withBase('/childrens-library')}>Children's Library</a></li>
         </ul>
       </div>
 
@@ -86,7 +87,7 @@ const year = new Date().getFullYear();
               <span class="sr-only"> (opens in a new tab)</span>
             </a>
           </li>
-          <li><a href="/where-we-gather">Directions</a></li>
+          <li><a href={withBase('/where-we-gather')}>Directions</a></li>
         </ul>
       </div>
     </div>

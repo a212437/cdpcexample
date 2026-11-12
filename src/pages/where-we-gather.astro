@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SundayCard from '../components/SundayCard.astro';
@@ -150,7 +151,7 @@ const accessibility = cardById('accessibility');
               Message us on WhatsApp
               <span class="sr-only"> (opens in a new tab)</span>
             </a>
-            <a class="btn btn--ghost" href="/visit">
+            <a class="btn btn--ghost" href={withBase('/visit')}>
               Plan your visit
               <Icon name="arrow-right" size={16} />
             </a>
@@ -176,7 +177,7 @@ const accessibility = cardById('accessibility');
                 </li>
               </ul>
             </div>
-            <a class="text-link mt-2" href="/childrens-library">
+            <a class="text-link mt-2" href={withBase('/childrens-library')}>
               Children's Library
               <Icon name="arrow-right" size={15} />
             </a>

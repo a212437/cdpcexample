@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -146,7 +147,7 @@ const ages = ['Toddlers', 'Children', 'Teens', 'Adults'];
             title={library.location.heading}
             status={library.location.status as 'confirmed' | 'to-confirm' | 'partly-confirmed'}
             text={library.location.text}
-            href="/where-we-gather"
+            href={withBase('/where-we-gather')}
             linkLabel="How to find us"
           />
         </div>
@@ -166,11 +167,11 @@ const ages = ['Toddlers', 'Children', 'Teens', 'Adults'];
             is a quiet gift to the church and the neighbourhood.
           </p>
           <div class="mt-8 flex flex-wrap gap-3">
-            <a class="btn btn--primary" href="/visit">
+            <a class="btn btn--primary" href={withBase('/visit')}>
               Plan your visit
               <Icon name="arrow-right" size={16} />
             </a>
-            <a class="btn btn--ghost" href="/about">
+            <a class="btn btn--ghost" href={withBase('/about')}>
               More about CDPC
             </a>
           </div>

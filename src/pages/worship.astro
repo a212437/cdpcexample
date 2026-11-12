@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
@@ -31,7 +32,7 @@ const detailCards = [
     title: worship.children.heading,
     status: 'confirmed',
     text: worship.children.text,
-    href: '/childrens-library',
+    href: withBase('/childrens-library'),
     linkLabel: 'Explore the library',
   },
 ];
@@ -80,7 +81,7 @@ const detailCards = [
             Worship is our response to the God who has first spoken and first loved us. We
             come to hear his Word, to sing and pray together, and to be shaped by grace.
           </p>
-          <a class="text-link mt-7" href="/beliefs">
+          <a class="text-link mt-7" href={withBase('/beliefs')}>
             The story behind our worship
             <Icon name="arrow-right" size={16} />
           </a>
@@ -119,7 +120,7 @@ const detailCards = [
       </div>
 
       <div class="mt-10 flex flex-wrap items-center gap-5 border-t border-[var(--line)] pt-7" data-reveal>
-        <a class="btn btn--primary" href="/visit">
+        <a class="btn btn--primary" href={withBase('/visit')}>
           What a first Sunday is like
           <Icon name="arrow-right" size={16} />
         </a>
@@ -137,7 +138,7 @@ const detailCards = [
           <p class="eyebrow">A little more detail</p>
           <h2 class="h2" id="worship-details-title">Before you come.</h2>
         </div>
-        <a class="text-link" href="/visit#questions" data-reveal>
+        <a class="text-link" href={withBase('/visit#questions')} data-reveal>
           All visiting questions
           <Icon name="arrow-right" size={16} />
         </a>

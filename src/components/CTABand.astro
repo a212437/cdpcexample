@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import site from '../content/site.json';
 import Icon from './Icon.astro';
 import Arches from './Arches.astro';
@@ -24,7 +25,7 @@ const {
       <p class="cta-band__copy">{text}</p>
     </div>
     <div class="cta-band__actions">
-      <a class="btn btn--light" href="/visit">
+      <a class="btn btn--light" href={withBase('/visit')}>
         Plan Your Visit
         <Icon name="arrow-right" size={17} />
       </a>

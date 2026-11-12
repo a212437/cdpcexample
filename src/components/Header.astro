@@ -1,4 +1,5 @@
 ---
+import { stripBase, withBase } from '../lib/paths';
 import site from '../content/site.json';
 import Icon from './Icon.astro';
 import LogoMark from './LogoMark.astro';
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const { transparent = false } = Astro.props;
-const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const path = stripBase(Astro.url.pathname).replace(/\/+$/, '') || '/';
 
 const isActive = (href: string) => {
   if (href === '/') return path === '/';
@@ -44,7 +45,7 @@ const headerClass = [
 <header class={headerClass} data-site-header>
   <div class="site-header__backdrop" aria-hidden="true"></div>
   <div class="container-page site-header__inner">
-    <a class="brand" href="/" aria-label="CDPC Puchong — home">
+    <a class="brand" href={withBase('/')} aria-label="CDPC Puchong — home">
       <LogoMark class="brand__mark" />
       <span class="brand__text">
         <span class="brand__name">CDPC</span>
@@ -59,7 +60,7 @@ const headerClass = [
             <li class:list={['nav-item', item.children ? 'has-menu' : '']}>
               <a
                 class="nav-link"
-                href={item.href}
+                href={withBase(item.href)}
                 aria-current={item.active ? 'page' : undefined}
               >
                 {item.label}
@@ -71,7 +72,7 @@ const headerClass = [
                     <li>
                       <a
                         class="nav-menu__link"
-                        href={child.href}
+                        href={withBase(child.href)}
                         aria-current={isActive(child.href) ? 'page' : undefined}
                       >
                         {child.label}
@@ -87,7 +88,7 @@ const headerClass = [
     </nav>
 
     <div class="site-header__actions">
-      <a class="btn btn--primary btn--small header-cta" href="/visit">
+      <a class="btn btn--primary btn--small header-cta" href={withBase('/visit')}>
         Plan Your Visit
         <Icon name="arrow-right" size={16} />
       </a>
@@ -114,7 +115,7 @@ const headerClass = [
   inert
 >
   <div class="container-page mobile-menu__top">
-    <a class="brand" href="/" aria-label="CDPC Puchong — home">
+    <a class="brand" href={withBase('/')} aria-label="CDPC Puchong — home">
       <LogoMark class="brand__mark" />
       <span class="brand__text">
         <span class="brand__name">CDPC</span>
@@ -133,7 +134,7 @@ const headerClass = [
           <li>
             <a
               class="mobile-menu__link"
-              href={item.href}
+              href={withBase(item.href)}
               aria-current={item.active ? 'page' : undefined}
               data-menu-link
             >
@@ -144,7 +145,7 @@ const headerClass = [
               <ul class="mobile-menu__sub">
                 {item.children.map((child) => (
                   <li>
-                    <a href={child.href} data-menu-link>
+                    <a href={withBase(child.href)} data-menu-link>
                       {child.label}
                     </a>
                   </li>
@@ -155,7 +156,7 @@ const headerClass = [
         ))
       }
       <li>
-        <a class="mobile-menu__link" href="/where-we-gather" data-menu-link>
+        <a class="mobile-menu__link" href={withBase('/where-we-gather')} data-menu-link>
           Where we gather
           <Icon name="arrow-up-right" size={18} />
         </a>
@@ -164,7 +165,7 @@ const headerClass = [
   </nav>
 
   <div class="container-page mobile-menu__footer">
-    <a class="btn btn--primary" href="/visit" data-menu-link>
+    <a class="btn btn--primary" href={withBase('/visit')} data-menu-link>
       Plan Your Visit
       <Icon name="arrow-right" size={17} />
     </a>

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../../lib/paths';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection, render } from 'astro:content';
 import { Picture } from 'astro:assets';
@@ -62,7 +63,7 @@ const articleSchema = {
     name: site.name,
     logo: {
       '@type': 'ImageObject',
-      url: new URL('/favicon.svg', siteUrl).toString(),
+      url: new URL(withBase('/favicon.svg'), siteUrl).toString(),
     },
   },
   mainEntityOfPage: sermonUrl,
@@ -77,13 +78,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: new URL('/', siteUrl).toString(),
+      item: new URL(withBase('/'), siteUrl).toString(),
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Sermons',
-      item: new URL('/sermons', siteUrl).toString(),
+      item: new URL(withBase('/sermons'), siteUrl).toString(),
     },
     {
       '@type': 'ListItem',
@@ -173,11 +174,11 @@ const breadcrumbSchema = {
               we would love to meet you.
             </p>
             <div class="mt-6 flex flex-wrap gap-3">
-              <a class="btn btn--primary" href="/visit">
+              <a class="btn btn--primary" href={withBase('/visit')}>
                 Plan your visit
                 <Icon name="arrow-right" size={16} />
               </a>
-              <a class="btn btn--ghost" href="/sermons">
+              <a class="btn btn--ghost" href={withBase('/sermons')}>
                 All sermons
               </a>
             </div>
@@ -258,19 +259,19 @@ const breadcrumbSchema = {
             <p class="eyebrow">Keep exploring</p>
             <ul class="mt-4 space-y-1">
               <li>
-                <a class="text-link" href="/worship">
+                <a class="text-link" href={withBase('/worship')}>
                   About our worship
                   <Icon name="arrow-right" size={15} />
                 </a>
               </li>
               <li>
-                <a class="text-link" href="/beliefs">
+                <a class="text-link" href={withBase('/beliefs')}>
                   What we believe
                   <Icon name="arrow-right" size={15} />
                 </a>
               </li>
               <li>
-                <a class="text-link" href="/visit">
+                <a class="text-link" href={withBase('/visit')}>
                   Plan your visit
                   <Icon name="arrow-right" size={15} />
                 </a>
@@ -283,7 +284,7 @@ const breadcrumbSchema = {
       <nav class="sermon-nav" aria-label="Sermon navigation">
         {
           newerSermon ? (
-            <a class="sermon-nav__link" href={`/sermons/${newerSermon.id}/`}>
+            <a class="sermon-nav__link" href={withBase(`/sermons/${newerSermon.id}/`)}>
               <span class="sermon-nav__direction">Newer sermon</span>
               <span class="sermon-nav__title">{newerSermon.data.title}</span>
             </a>
@@ -291,13 +292,13 @@ const breadcrumbSchema = {
             <span aria-hidden="true" />
           )
         }
-        <a class="sermon-nav__all" href="/sermons">
+        <a class="sermon-nav__all" href={withBase('/sermons')}>
           All sermons
           <Icon name="arrow-right" size={15} />
         </a>
         {
           olderSermon ? (
-            <a class="sermon-nav__link sermon-nav__link--next" href={`/sermons/${olderSermon.id}/`}>
+            <a class="sermon-nav__link sermon-nav__link--next" href={withBase(`/sermons/${olderSermon.id}/`)}>
               <span class="sermon-nav__direction">Older sermon</span>
               <span class="sermon-nav__title">{olderSermon.data.title}</span>
             </a>

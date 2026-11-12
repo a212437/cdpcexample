@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SundayCard from '../components/SundayCard.astro';
@@ -30,9 +31,9 @@ const icons: Record<string, string> = {
 };
 
 const links: Record<string, { href: string; label: string }> = {
-  where: { href: '/where-we-gather', label: 'Directions' },
-  children: { href: '/childrens-library', label: "Children's Library" },
-  parking: { href: '/where-we-gather', label: 'Getting here' },
+  where: { href: withBase('/where-we-gather'), label: 'Directions' },
+  children: { href: withBase('/childrens-library'), label: "Children's Library" },
+  parking: { href: withBase('/where-we-gather'), label: 'Getting here' },
 };
 ---
 
@@ -128,7 +129,7 @@ const links: Record<string, { href: string; label: string }> = {
           <p class="lead mt-6">{visit.people.text}</p>
           <p class="mt-4 text-sm leading-relaxed text-[var(--ink-faint)]">{visit.people.note}</p>
           <div class="mt-8 flex flex-wrap items-center gap-5">
-            <a class="btn btn--ghost" href="/leadership">
+            <a class="btn btn--ghost" href={withBase('/leadership')}>
               Meet our leaders
               <Icon name="arrow-right" size={16} />
             </a>
@@ -157,7 +158,7 @@ const links: Record<string, { href: string; label: string }> = {
                 Pastor Josh Ng serves CDPC Puchong together with our elders and deacons. You
                 can meet the whole leadership team before you arrive.
               </p>
-              <a class="text-link mt-3" href="/leadership">
+              <a class="text-link mt-3" href={withBase('/leadership')}>
                 Elders &amp; deacons
                 <Icon name="arrow-right" size={15} />
               </a>
@@ -214,7 +215,7 @@ const links: Record<string, { href: string; label: string }> = {
                 <span class="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
-            <a class="text-link mt-4" href="/where-we-gather">
+            <a class="text-link mt-4" href={withBase('/where-we-gather')}>
               More on where we gather
               <Icon name="arrow-right" size={16} />
             </a>
@@ -282,7 +283,7 @@ const links: Record<string, { href: string; label: string }> = {
           <a class="btn btn--primary" href={site.contact.whatsapp} target="_blank" rel="noopener">
             <Icon name="message-circle" size={17} />
             WhatsApp us <span class="sr-only"> (opens in a new tab)</span></a>
-          <a class="btn btn--ghost" href="/beliefs">
+          <a class="btn btn--ghost" href={withBase('/beliefs')}>
             What we believe
             <Icon name="arrow-right" size={16} />
           </a>

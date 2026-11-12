@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -67,11 +68,11 @@ const description =
           worship, Scripture-based preaching and grace-enabled spirituality.
         </p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="/visit">
+          <a class="btn btn--primary" href={withBase('/visit')}>
             Plan Your Visit
             <Icon name="arrow-right" size={17} />
           </a>
-          <a class="btn btn--ghost" href={`/sermons/${latestSermons[0].id}/`}>
+          <a class="btn btn--ghost" href={withBase(`/sermons/${latestSermons[0].id}/`)}>
             <span class="grid h-7 w-7 place-items-center rounded-full bg-[rgba(251,245,232,.14)]">
               <Icon name="play" size={12} strokeWidth={1.5} />
             </span>
@@ -108,7 +109,7 @@ const description =
             shape of a Sunday with us — and we are happy to answer anything else.
           </p>
           <div class="mt-7 flex flex-wrap items-center gap-5">
-            <a class="btn btn--primary" href="/visit">
+            <a class="btn btn--primary" href={withBase('/visit')}>
               Plan your visit
               <Icon name="arrow-right" size={16} />
             </a>
@@ -138,7 +139,7 @@ const description =
               icon="map-pin"
               title="IOI Boulevard, 7th floor"
               text="Unit B, 01, Jalan Kenari 5, Bandar Puchong Jaya. Directions are simple — we'll help if you need it."
-              href="/where-we-gather"
+              href={withBase('/where-we-gather')}
               linkLabel="How to find us"
             />
           </div>
@@ -147,7 +148,7 @@ const description =
               icon="book-open"
               title="Christ at the centre"
               text="Christ-centred worship, Scripture-based expository preaching and grace-enabled spirituality."
-              href="/worship"
+              href={withBase('/worship')}
               linkLabel="About worship"
             />
           </div>
@@ -157,7 +158,7 @@ const description =
               title="A place for every age"
               text="Our Children's Library has a great collection of English books and a Story Time session for toddlers to adults."
               status="partly-confirmed"
-              href="/childrens-library"
+              href={withBase('/childrens-library')}
               linkLabel="Explore the library"
             />
           </div>
@@ -204,11 +205,11 @@ const description =
           <p class="lead mt-6">{site.whoWeAre}</p>
           <blockquote class="pullquote">{site.tagline}</blockquote>
           <div class="mt-8 flex flex-wrap items-center gap-5">
-            <a class="btn btn--ghost" href="/about">
+            <a class="btn btn--ghost" href={withBase('/about')}>
               Meet our church
               <Icon name="arrow-right" size={16} />
             </a>
-            <a class="text-link" href="/leadership">
+            <a class="text-link" href={withBase('/leadership')}>
               Our leadership
               <Icon name="arrow-right" size={16} />
             </a>
@@ -226,7 +227,7 @@ const description =
           <h2 class="h2" id="sermons-title">Recent teaching.</h2>
           <p class="lead">{site.word}</p>
         </div>
-        <a class="text-link shrink-0" href="/sermons" data-reveal>
+        <a class="text-link shrink-0" href={withBase('/sermons')} data-reveal>
           All sermons
           <Icon name="arrow-right" size={16} />
         </a>
@@ -261,7 +262,7 @@ const description =
           <h2 class="h2" id="events-title">Coming up.</h2>
           <p class="lead">The centre of our week is Sunday worship. Special gatherings will appear here as details are confirmed.</p>
         </div>
-        <a class="text-link shrink-0" href="/events" data-reveal>
+        <a class="text-link shrink-0" href={withBase('/events')} data-reveal>
           See the calendar
           <Icon name="calendar" size={16} />
         </a>
@@ -282,7 +283,7 @@ const description =
           <p class="mt-4 max-w-xl text-[0.9rem] leading-relaxed text-[var(--ink-soft)]">
             {events.weekly.description}
           </p>
-          <a class="btn btn--primary mt-6" href="/visit">
+          <a class="btn btn--primary mt-6" href={withBase('/visit')}>
             Plan your first Sunday
             <Icon name="arrow-right" size={16} />
           </a>
@@ -327,7 +328,7 @@ const description =
             From creation to consummation, the Bible tells one story of grace. These five
             movements are the shape of our faith.
           </p>
-          <a class="text-link beliefs-band__link mt-4" href="/beliefs">
+          <a class="text-link beliefs-band__link mt-4" href={withBase('/beliefs')}>
             Read what we believe
             <Icon name="arrow-right" size={16} />
           </a>
@@ -370,7 +371,7 @@ const description =
               <span class="chip">Toddlers to adults</span>
             </div>
             <div class="mt-8 flex flex-wrap items-center gap-5">
-              <a class="btn btn--primary" href="/childrens-library">
+              <a class="btn btn--primary" href={withBase('/childrens-library')}>
                 Explore the library
                 <Icon name="arrow-right" size={16} />
               </a>
@@ -446,7 +447,7 @@ const description =
                 <span class="sr-only"> (opens in a new tab)</span>
               </a>
             </div>
-            <a class="text-link mt-4" href="/where-we-gather">
+            <a class="text-link mt-4" href={withBase('/where-we-gather')}>
               More on getting here
               <Icon name="arrow-right" size={16} />
             </a>

@@ -2,9 +2,9 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// TODO: replace the local URL with the church's real domain before deploying.
 export default defineConfig({
-  site: 'http://localhost:4321',
+  site: 'https://a212437.github.io',
+  base: '/cdpcexample',
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/404'),

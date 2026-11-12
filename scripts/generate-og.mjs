@@ -1,6 +1,6 @@
 import { chromium } from 'playwright-core';
 
-const base = (process.env.SITE_URL ?? 'http://127.0.0.1:4321').replace(/\/$/, '');
+const base = (process.env.SITE_URL ?? 'http://127.0.0.1:4321/cdpcexample').replace(/\/$/, '');
 const executablePath =
   process.env.CHROME_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 
@@ -20,19 +20,19 @@ await page.setContent(
       <style>
         @font-face {
           font-family: "Fraunces Variable";
-          src: url("/fonts/fraunces-latin-var.woff2") format("woff2-variations");
+          src: url("${base}/fonts/fraunces-latin-var.woff2") format("woff2-variations");
           font-weight: 100 900;
           font-style: normal;
         }
         @font-face {
           font-family: "Fraunces Variable";
-          src: url("/fonts/fraunces-latin-italic-var.woff2") format("woff2-variations");
+          src: url("${base}/fonts/fraunces-latin-italic-var.woff2") format("woff2-variations");
           font-weight: 100 900;
           font-style: italic;
         }
         @font-face {
           font-family: "Instrument Sans Variable";
-          src: url("/fonts/instrument-sans-latin-var.woff2") format("woff2-variations");
+          src: url("${base}/fonts/instrument-sans-latin-var.woff2") format("woff2-variations");
           font-weight: 400 700;
           font-style: normal;
         }

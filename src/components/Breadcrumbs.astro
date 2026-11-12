@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { withBase } from '../lib/paths';
 
 interface Crumb {
   label: string;
@@ -20,7 +21,7 @@ const schema = {
     '@type': 'ListItem',
     position: index + 1,
     name: item.label,
-    ...(item.href ? { item: new URL(item.href, Astro.site).toString() } : {}),
+    ...(item.href ? { item: new URL(withBase(item.href), Astro.site).toString() } : {}),
   })),
 };
 ---
@@ -34,7 +35,7 @@ const schema = {
           <li>
             {item.href && !isLast ? (
               <>
-                <a href={item.href}>{item.label}</a>
+                <a href={withBase(item.href)}>{item.label}</a>
                 <Icon name="chevron-right" size={12} />
               </>
             ) : (

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import type { CollectionEntry } from 'astro:content';
 import Icon from './Icon.astro';
 
@@ -16,7 +17,7 @@ const dateLabel = new Intl.DateTimeFormat('en-MY', {
 }).format(sermon.data.date);
 ---
 
-<a class="sermon-card" href={`/sermons/${sermon.id}/`}>
+<a class="sermon-card" href={withBase(`/sermons/${sermon.id}/`)}>
   <div>
     <div class="sermon-card__meta">
       <span>{dateLabel}</span>

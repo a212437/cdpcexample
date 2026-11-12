@@ -24,14 +24,15 @@ npm install
 npm run dev
 ```
 
-The development server runs at `http://localhost:4321`.
+The development server runs at `http://localhost:4321/cdpcexample/`. The `/cdpcexample/`
+path is the GitHub Pages project base configured in `astro.config.mjs`.
 
 ### Useful commands
 
 ```bash
 npm run check     # Astro + TypeScript diagnostics
 npm run build     # static production build in dist/
-npm run preview   # serve the built site at http://127.0.0.1:4321
+npm run preview   # serve the built site at http://127.0.0.1:4321/cdpcexample/
 npm run art       # regenerate the abstract artwork in src/assets/images
 npm run og        # regenerate public/og.jpg
 npm run audit     # multi-viewport QA against a running preview
@@ -40,7 +41,8 @@ npm run shots     # screenshots of selected routes against a running preview
 
 `npm run og`, `npm run audit` and `npm run shots` use `playwright-core` with the installed
 Google Chrome. Set `CHROME_PATH` if Chrome is elsewhere. The target URL defaults to
-`http://127.0.0.1:4321`; set `SITE_URL` to audit another deployment. `npm run shots` accepts
+`http://127.0.0.1:4321/cdpcexample`; set `SITE_URL` to audit another deployment, including its
+base path when applicable. `npm run shots` accepts
 routes, for example `npm run shots -- / /contact /events`. Screenshots are written to
 `SHOT_DIR` or the system temp directory under `cdpc-shots`.
 
@@ -145,28 +147,32 @@ static build from a host with HTTP/2/3, compression and a CDN.
 
 ## Deployment
 
-1. Set the real domain in `astro.config.mjs`:
+The site deploys automatically to GitHub Pages on every push to `main` through
+`.github/workflows/deploy.yml`.
 
-   ```js
-   site: 'https://your-church-domain.example',
-   ```
+- Public URL: `https://a212437.github.io/cdpcexample/`
+- Repository: `https://github.com/a212437/cdpcexample`
+- Build command: `npm run build`
+- Output directory: `dist`
+- Node version: 22 LTS in CI
 
-   This fixes canonical URLs, Open Graph URLs and the generated sitemap.
+The matching Astro configuration is:
 
-2. Update the sitemap URL in `public/robots.txt`.
+```js
+site: 'https://a212437.github.io',
+base: '/cdpcexample',
+```
 
-3. Build and upload `dist/` to any static host. The site works on Netlify, Cloudflare Pages,
-   Vercel, GitHub Pages or a conventional static web server.
+`src/lib/paths.ts` prefixes internal links with the base path. Vite applies the same base to
+generated assets and font URLs. The GitHub Actions workflow uses the official Pages actions
+and can enable Pages for the repository on its first run.
 
-   - Build command: `npm run build`
-   - Output directory: `dist`
-   - Node version: 20.19+ or 22 LTS
+If the church later uses a custom domain at the root of the domain, set `site` to that domain
+and change `base` to `/`; update the sitemap URL in `public/robots.txt` at the same time. For a
+different static host, keep `base` only if the site is served from a subdirectory.
 
-4. Configure the host to use `dist/404.html` as the custom not-found page. This is automatic
-   on Netlify and Cloudflare Pages.
-
-5. Verify the deployed WhatsApp link, the Google Maps/Waze links and the sitemap in the
-   production domain.
+GitHub Pages serves `dist/404.html` for missing pages. Verify the deployed WhatsApp link, the
+Google Maps/Waze links, canonical URLs and the sitemap after each domain change.
 
 There is no server-side code, environment variable or secrets file required.
 
@@ -186,7 +192,7 @@ There is no server-side code, environment variable or secrets file required.
 - Whether to keep the homepage “Watch Latest Sermon” label once media is available; it
   currently links to the latest sermon page, which shows a recording placeholder if no media
   URL exists.
-- Social profiles, if any, and a final production domain.
+- Social profiles, if any, and whether to use a custom domain instead of the GitHub Pages URL.
 
 ## Known limitations
 
@@ -204,12 +210,14 @@ There is no server-side code, environment variable or secrets file required.
 ## Project layout
 
 ```text
+.github/workflows/       GitHub Pages deployment
 public/                  fonts, favicon, icons, manifest, robots, og.jpg
 scripts/                 artwork, OG image, screenshots and audit tools
 src/assets/images/       generated artwork
 src/components/          reusable Astro components
 src/content/             JSON copy and Markdown sermons
 src/layouts/             shared HTML shell and SEO/JSON-LD
+src/lib/                 base-path helpers
 src/pages/               routes
 src/scripts/             small progressive-enhancement scripts
 src/styles/global.css    design tokens and all page styles

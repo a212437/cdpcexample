@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import { ClientRouter } from 'astro:transitions';
 import site from '../content/site.json';
 import Header from '../components/Header.astro';
@@ -22,8 +23,9 @@ const {
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL('http://localhost:4321');
+const siteRoot = new URL(withBase('/'), siteUrl).toString();
 const canonical = new URL(Astro.url.pathname, siteUrl).toString();
-const ogImage = new URL('/og.jpg', siteUrl).toString();
+const ogImage = new URL(withBase('/og.jpg'), siteUrl).toString();
 const pageTitle = title.includes('CDPC Puchong') ? title : `${title} | CDPC Puchong`;
 
 const churchSchema = {
@@ -31,11 +33,11 @@ const churchSchema = {
   '@type': 'Church',
   name: site.name,
   alternateName: site.shortName,
-  url: siteUrl.toString(),
+  url: siteRoot,
   description: site.whoWeAre,
   slogan: site.tagline,
   image: ogImage,
-  logo: new URL('/favicon.svg', siteUrl).toString(),
+  logo: new URL(withBase('/favicon.svg'), siteUrl).toString(),
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${site.address.unit}, ${site.address.street}`,
@@ -61,7 +63,7 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: site.shortName,
-  url: siteUrl.toString(),
+  url: siteRoot,
   description,
 };
 ---
@@ -81,20 +83,20 @@ const websiteSchema = {
     <meta name="theme-color" content="#0e1611" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+    <link rel="manifest" href={withBase('/site.webmanifest')} />
 
     <link
       rel="preload"
-      href="/fonts/fraunces-latin-var.woff2"
+      href={withBase('/fonts/fraunces-latin-var.woff2')}
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/instrument-sans-latin-var.woff2"
+      href={withBase('/fonts/instrument-sans-latin-var.woff2')}
       as="font"
       type="font/woff2"
       crossorigin

@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import SundayCard from '../components/SundayCard.astro';
@@ -167,7 +168,7 @@ const weeksOf = [
                 ))
               }
             </dl>
-            <a class="btn btn--primary mt-6 w-full" href="/visit">
+            <a class="btn btn--primary mt-6 w-full" href={withBase('/visit')}>
               Plan your visit
               <Icon name="arrow-right" size={16} />
             </a>
@@ -238,7 +239,7 @@ const weeksOf = [
           Ask what is coming up
           <span class="sr-only"> (opens in a new tab)</span>
         </a>
-        <a class="text-link" href="/childrens-library">
+        <a class="text-link" href={withBase('/childrens-library')}>
           Children's Library &amp; Story Time
           <Icon name="arrow-right" size={16} />
         </a>

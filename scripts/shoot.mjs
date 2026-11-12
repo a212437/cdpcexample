@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
-const base = (process.env.SITE_URL ?? 'http://127.0.0.1:4321').replace(/\/$/, '');
+const base = (process.env.SITE_URL ?? 'http://127.0.0.1:4321/cdpcexample').replace(/\/$/, '');
 const executablePath =
   process.env.CHROME_PATH ?? 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const out = process.env.SHOT_DIR ?? path.join(os.tmpdir(), 'cdpc-shots');

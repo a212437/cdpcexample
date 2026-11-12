@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../lib/paths';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import InfoCard from '../components/InfoCard.astro';
@@ -75,7 +76,7 @@ const description =
                   Jalan Kenari 5, Bandar Puchong Jaya<br />
                   47170 Puchong, Selangor
                 </address>
-                <a class="text-link mt-2" href="/where-we-gather">
+                <a class="text-link mt-2" href={withBase('/where-we-gather')}>
                   Directions
                   <Icon name="arrow-right" size={15} />
                 </a>
@@ -89,7 +90,7 @@ const description =
                   Worship Service<br />
                   Every Sunday at 9:00AM
                 </p>
-                <a class="text-link mt-2" href="/visit">
+                <a class="text-link mt-2" href={withBase('/visit')}>
                   Plan your visit
                   <Icon name="arrow-right" size={15} />
                 </a>
@@ -118,7 +119,7 @@ const description =
             icon="compass"
             title="A first visit"
             text="Service time, the address, what to expect and how to find the room."
-            href="/visit"
+            href={withBase('/visit')}
             linkLabel="Plan a visit"
           />
         </div>
@@ -127,7 +128,7 @@ const description =
             icon="library"
             title="Children & the library"
             text="Ask about the Children’s Library, Story Time and bringing children."
-            href="/childrens-library"
+            href={withBase('/childrens-library')}
             linkLabel="The library"
           />
         </div>
@@ -136,7 +137,7 @@ const description =
             icon="play"
             title="Sermons & teaching"
             text="Ask about recent sermons, recordings or what we believe."
-            href="/sermons"
+            href={withBase('/sermons')}
             linkLabel="Browse sermons"
           />
         </div>
@@ -145,7 +146,7 @@ const description =
             icon="users"
             title="Church life"
             text="Meet our leadership or learn more about the life of the church."
-            href="/leadership"
+            href={withBase('/leadership')}
             linkLabel="Our leadership"
           />
         </div>
