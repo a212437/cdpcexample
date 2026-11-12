@@ -1,0 +1,31 @@
+---
+import Arches from './Arches.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  breadcrumbs: { label: string; href?: string }[];
+}
+
+const { eyebrow, title, intro, breadcrumbs } = Astro.props;
+const hasAside = Astro.slots.has('aside');
+---
+
+<section class="page-hero">
+  <Arches class="page-hero__arches" />
+  <div class="container-page page-hero__inner" class:list={[{ 'page-hero__inner--split': hasAside }]}>
+    <div class="page-hero__copy">
+      <Breadcrumbs items={breadcrumbs} />
+      <p class="eyebrow mt-7">{eyebrow}</p>
+      <h1 class="page-hero__title" set:html={title} />
+      {intro && <p class="page-hero__intro">{intro}</p>}
+    </div>
+    {hasAside && (
+      <div class="page-hero__aside">
+        <slot name="aside" />
+      </div>
+    )}
+  </div>
+</section>

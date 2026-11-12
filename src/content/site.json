@@ -1,0 +1,29 @@
+{
+  "name": "City Discipleship Presbyterian Church",
+  "shortName": "CDPC Puchong",
+  "service": {
+    "label": "Worship Service",
+    "day": "Sunday",
+    "dayShort": "Sun",
+    "time": "9:00AM",
+    "timeISO": "09:00"
+  },
+  "address": {
+    "unit": "7th Floor, IOI Boulevard, Unit B, 01",
+    "street": "Jalan Kenari 5",
+    "area": "Bandar Puchong Jaya",
+    "postcode": "47170",
+    "city": "Puchong",
+    "state": "Selangor",
+    "country": "Malaysia",
+    "full": "7th Floor, IOI Boulevard, Unit B, 01, Jalan Kenari 5, Bandar Puchong Jaya, 47170 Puchong, Selangor, Malaysia"
+  },
+  "contact": {
+    "whatsapp": "https://wa.me/message/G6JYSQCRF6H7K1",
+    "whatsappLabel": "Message us on WhatsApp"
+  },
+  "whoWeAre": "CDPC Puchong is a church made up of diverse followers of Jesus who gather together for Christ-centred worship, Scripture-based expository preaching and grace-enabled spirituality.",
+  "tagline": "Created for good but broken by evil, we believe God rescues us by his grace and renews us to be people of healing.",
+  "word": "We seek to centre ourselves on Christ, the Gospel and the Word.",
+  "library": "A library with a great collection of English books with a Story Time session, catered for people from toddlers to adults."
+}

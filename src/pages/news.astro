@@ -1,0 +1,123 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import InfoCard from '../components/InfoCard.astro';
+import Icon from '../components/Icon.astro';
+import CTABand from '../components/CTABand.astro';
+import site from '../content/site.json';
+import news from '../content/news.json';
+import whoImage from '../assets/images/who-we-are-placeholder.jpg';
+
+const description =
+  'News, notices and updates from the life of CDPC Puchong, a Presbyterian church in Bandar Puchong Jaya.';
+---
+
+<BaseLayout title="News & Notices" description={description}>
+  <PageHero
+    eyebrow="News & notices"
+    title="Keeping in step with the church."
+    intro={news.intro}
+    breadcrumbs={[{ label: 'News' }]}
+  />
+
+  <section class="section" aria-labelledby="notices-title">
+    <div class="container-page">
+      <div class="empty-state" data-reveal>
+        <div class="empty-state__art" aria-hidden="true">
+          <Picture
+            src={whoImage}
+            formats={['avif', 'webp']}
+            fallbackFormat="jpg"
+            widths={[480, 800]}
+            sizes="(min-width: 900px) 360px, 100vw"
+            alt=""
+            loading="lazy"
+            quality={78}
+            decoding="async"
+          />
+          <span class="empty-state__veil"></span>
+          <span class="empty-state__stamp">CDPC · Notices</span>
+        </div>
+        <div class="empty-state__copy">
+          <p class="eyebrow">The latest</p>
+          <h2 class="h2 mt-5" id="notices-title">{news.emptyHeading}.</h2>
+          <p class="lead mt-6">{news.emptyText}</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              class="btn btn--primary"
+              href={site.contact.whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="message-circle" size={17} />
+              Ask for this week's notices
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+            <a class="btn btn--ghost" href="/events">
+              See the calendar
+              <Icon name="calendar" size={16} />
+            </a>
+          </div>
+          <p class="mt-6 flex items-start gap-3 text-[0.78rem] leading-relaxed text-[var(--ink-faint)]">
+            <Icon name="info" size={15} class="mt-0.5 shrink-0 text-[var(--gold)]" />
+            <!-- TODO: confirm with church — add a simple notices workflow. Until then, this page intentionally points to WhatsApp rather than showing stale updates. -->
+            This page will carry notices once the church has an approved way to update them.
+            For now, WhatsApp is the most reliable place to ask.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm bg-[var(--paper-2)]" aria-labelledby="while-here-title">
+    <div class="container-page">
+      <div class="section-top">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">While you are here</p>
+          <h2 class="h2" id="while-here-title">The life of the church.</h2>
+        </div>
+        <a class="text-link" href="/about" data-reveal>
+          About CDPC
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+
+      <div class="grid gap-3 md:grid-cols-3">
+        <div data-reveal>
+          <InfoCard
+            icon="play"
+            title="Sermons"
+            text="Read and reflect on recent teaching from our Sunday gatherings."
+            href="/sermons"
+            linkLabel="Browse sermons"
+          />
+        </div>
+        <div data-reveal style="--delay: 60ms">
+          <InfoCard
+            icon="calendar"
+            title="Events"
+            text="See the weekly rhythm and any special gatherings as they are confirmed."
+            href="/events"
+            linkLabel="View the calendar"
+          />
+        </div>
+        <div data-reveal style="--delay: 120ms">
+          <InfoCard
+            icon="library"
+            title="Children's Library"
+            text="English books and Story Time for toddlers through to adults."
+            href="/childrens-library"
+            linkLabel="Visit the library"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="Sundays at 9:00AM"
+    title="There is always room for you."
+    text="Join us at IOI Boulevard, Puchong, or message us if you would like to know more before you come."
+  />
+</BaseLayout>

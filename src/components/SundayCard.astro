@@ -1,0 +1,47 @@
+---
+import site from '../content/site.json';
+import Icon from './Icon.astro';
+import Arches from './Arches.astro';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<aside class:list={['sunday-card', { 'sunday-card--compact': compact }]}>
+  <Arches class="sunday-card__arches" />
+  <div class="sunday-card__content">
+    <div class="sunday-card__top">
+      <p class="eyebrow">This Sunday</p>
+      <span class="sunday-card__weekly">Weekly</span>
+    </div>
+    <div class="sunday-card__time">
+      <span class="sunday-card__day">Sunday</span>
+      <span class="sunday-card__clock">9:00AM</span>
+    </div>
+    <p class="sunday-card__service">Worship Service</p>
+    <!-- TODO: confirm with church — verify the exact unit. Old site footer listed "B-7-1"; supplied address lists "Unit B, 01, 7th Floor". -->
+    <address class="sunday-card__address">
+      7th Floor, IOI Boulevard, Unit B, 01<br />
+      Jalan Kenari 5, Bandar Puchong Jaya<br />
+      47170 Puchong, Selangor
+    </address>
+    <div class="sunday-card__actions">
+      <a class="btn btn--primary" href="/visit">
+        Plan your visit
+        <Icon name="arrow-right" size={16} />
+      </a>
+      <a
+        class="sunday-card__whatsapp"
+        href={site.contact.whatsapp}
+        target="_blank"
+        rel="noopener"
+      >
+        <Icon name="message-circle" size={16} />
+        Ask us anything
+        <span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </div>
+  </div>
+</aside>

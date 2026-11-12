@@ -1,0 +1,101 @@
+---
+import site from '../content/site.json';
+import Icon from './Icon.astro';
+import LogoMark from './LogoMark.astro';
+import Arches from './Arches.astro';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <Arches class="site-footer__arches" />
+  <div class="container-page">
+    <div class="site-footer__inner">
+      <div>
+        <a class="site-footer__brand" href="/">
+          <LogoMark class="brand__mark" />
+          <span>
+            <span class="site-footer__brand-name">CDPC Puchong</span>
+            <span class="site-footer__brand-sub">City Discipleship Presbyterian Church</span>
+          </span>
+          <span class="sr-only"> — home</span>
+        </a>
+        <p class="site-footer__statement">
+          Diverse followers of Jesus, gathered for Christ-centred worship, Scripture-based
+          expository preaching and grace-enabled spirituality.
+        </p>
+        <div class="mt-6">
+          <a
+            class="btn btn--light"
+            href={site.contact.whatsapp}
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="message-circle" size={18} />
+            Message us
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="footer-heading">Explore</h2>
+        <ul class="footer-list">
+          <li><a href="/about">Who we are</a></li>
+          <li><a href="/beliefs">What we believe</a></li>
+          <li><a href="/leadership">Leadership</a></li>
+          <li><a href="/sermons">Sermons</a></li>
+          <li><a href="/news">News</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="footer-heading">Gather</h2>
+        <ul class="footer-list">
+          <li><a href="/visit">Plan your visit</a></li>
+          <li><a href="/worship">Worship</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href="/where-we-gather">Where we gather</a></li>
+          <li><a href="/childrens-library">Children's Library</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="footer-heading">Sunday</h2>
+        <p class="footer-service">
+          <Icon name="clock" size={16} />
+          Sundays · 9:00AM
+        </p>
+        <!-- TODO: confirm with church — verify the exact unit. The old website footer listed "B-7-1, IOI Boulevard"; the supplied address lists "7th Floor, Unit B, 01". -->
+        <address class="footer-address">
+          7th Floor, IOI Boulevard, Unit B, 01<br />
+          Jalan Kenari 5, Bandar Puchong Jaya<br />
+          47170 Puchong, Selangor, Malaysia
+        </address>
+        <ul class="footer-list mt-4">
+          <li>
+            <a
+              href={site.contact.whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="message-circle" size={15} />
+              WhatsApp
+              <Icon name="arrow-up-right" size={13} />
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+          <li><a href="/where-we-gather">Directions</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {year} City Discipleship Presbyterian Church (CDPC Puchong)</p>
+      <p>Sundays 9:00AM · Puchong, Selangor</p>
+    </div>
+
+    <div class="footer-wordmark" aria-hidden="true"></div>
+  </div>
+</footer>

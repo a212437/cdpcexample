@@ -1,0 +1,460 @@
+---
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import CTABand from '../components/CTABand.astro';
+import SermonCard from '../components/SermonCard.astro';
+import MapArt from '../components/MapArt.astro';
+import InfoCard from '../components/InfoCard.astro';
+import Arches from '../components/Arches.astro';
+import site from '../content/site.json';
+import beliefs from '../content/beliefs.json';
+import events from '../content/events.json';
+import heroImage from '../assets/images/hero-placeholder.jpg';
+import whoImage from '../assets/images/who-we-are-placeholder.jpg';
+import libraryImage from '../assets/images/library-placeholder.jpg';
+
+const sermons = (await getCollection('sermons')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const latestSermons = sermons.slice(0, 2);
+
+const mapQuery = encodeURIComponent(site.address.full);
+const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(
+  `${site.address.unit}, ${site.address.street}, ${site.address.city}`,
+)}&navigate=yes`;
+
+const description =
+  'A warm, Christ-centred Presbyterian church in Bandar Puchong Jaya, Selangor. Worship Service every Sunday at 9:00AM at IOI Boulevard. Plan your first visit.';
+---
+
+<BaseLayout
+  title="CDPC Puchong | A church in Puchong, Selangor"
+  description={description}
+  transparentHeader
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <Picture
+        src={heroImage}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        widths={[640, 960, 1280, 1600, 2000, 2400]}
+        sizes="100vw"
+        alt="Abstract artwork of warm evening light falling through tall arched windows"
+        loading="eager"
+        fetchpriority="high"
+        quality={82}
+        decoding="async"
+      />
+    </div>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__glow" aria-hidden="true"></div>
+
+    <div class="container-page hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow eyebrow--light hero__eyebrow">
+          City Discipleship Presbyterian Church · Puchong
+        </p>
+        <h1 id="hero-title">
+          <span class="block">Grace for the <em>weary.</em></span>
+          <span class="block">Room for the <em>seeking.</em></span>
+        </h1>
+        <p class="hero__sub">
+          A church of diverse followers of Jesus in Puchong — gathering for Christ-centred
+          worship, Scripture-based preaching and grace-enabled spirituality.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/visit">
+            Plan Your Visit
+            <Icon name="arrow-right" size={17} />
+          </a>
+          <a class="btn btn--ghost" href={`/sermons/${latestSermons[0].id}/`}>
+            <span class="grid h-7 w-7 place-items-center rounded-full bg-[rgba(251,245,232,.14)]">
+              <Icon name="play" size={12} strokeWidth={1.5} />
+            </span>
+            Watch Latest Sermon
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-page">
+      <div class="hero__foot">
+        <p class="hero__service">
+          <Icon name="clock" size={16} />
+          Sundays 9:00AM
+          <span class="hero__dot" aria-hidden="true"></span>
+          IOI Boulevard, Puchong
+        </p>
+        <a class="hero__scroll" href="#first-sunday">
+          What to expect
+          <Icon name="arrow-down" size={15} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="first-sunday" aria-labelledby="first-sunday-title">
+    <div class="container-page">
+      <div class="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-4 lg:sticky lg:top-32" data-reveal>
+          <p class="eyebrow">Your first Sunday</p>
+          <h2 class="h2 mt-5" id="first-sunday-title">Simple, warm, and centred on Christ.</h2>
+          <p class="lead mt-6">
+            You don't need to know anyone or have it all figured out. Here is the practical
+            shape of a Sunday with us — and we are happy to answer anything else.
+          </p>
+          <div class="mt-7 flex flex-wrap items-center gap-5">
+            <a class="btn btn--primary" href="/visit">
+              Plan your visit
+              <Icon name="arrow-right" size={16} />
+            </a>
+            <a
+              class="text-link"
+              href={site.contact.whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="message-circle" size={17} />
+              Ask a question
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="first-sunday-grid lg:col-span-8">
+          <div data-reveal>
+            <InfoCard
+              icon="clock"
+              title="Sundays at 9:00AM"
+              text="Worship Service begins at nine in the morning. Come a few minutes early to settle in."
+            />
+          </div>
+          <div data-reveal style="--delay: 70ms">
+            <InfoCard
+              icon="map-pin"
+              title="IOI Boulevard, 7th floor"
+              text="Unit B, 01, Jalan Kenari 5, Bandar Puchong Jaya. Directions are simple — we'll help if you need it."
+              href="/where-we-gather"
+              linkLabel="How to find us"
+            />
+          </div>
+          <div data-reveal style="--delay: 140ms">
+            <InfoCard
+              icon="book-open"
+              title="Christ at the centre"
+              text="Christ-centred worship, Scripture-based expository preaching and grace-enabled spirituality."
+              href="/worship"
+              linkLabel="About worship"
+            />
+          </div>
+          <div data-reveal style="--delay: 210ms">
+            <InfoCard
+              icon="library"
+              title="A place for every age"
+              text="Our Children's Library has a great collection of English books and a Story Time session for toddlers to adults."
+              status="partly-confirmed"
+              href="/childrens-library"
+              linkLabel="Explore the library"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 flex items-start gap-3 border-t border-[var(--line)] pt-6" data-reveal>
+        <Icon name="info" size={16} class="mt-0.5 shrink-0 text-[var(--gold)]" />
+        <p class="text-[0.8rem] leading-relaxed text-[var(--ink-faint)]">
+          A few practical details are still being confirmed with the church. They are marked
+          here and will be updated as soon as we know.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm" aria-labelledby="who-title">
+    <div class="container-page">
+      <div class="grid items-center gap-14 lg:grid-cols-12 lg:gap-20">
+        <figure class="figure lg:col-span-5" data-reveal>
+          <div class="figure__media aspect-landscape">
+            <Picture
+              src={whoImage}
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              widths={[480, 800, 1200, 1600]}
+              sizes="(min-width: 1024px) 40vw, 100vw"
+              alt="Abstract artwork of an arched window opening onto warm afternoon light"
+              loading="lazy"
+              quality={82}
+              decoding="async"
+            />
+          </div>
+          <span class="figure__frame" aria-hidden="true"></span>
+          <figcaption class="figure__caption">
+            <span>Light through the arches</span>
+            <span>CDPC Puchong</span>
+          </figcaption>
+        </figure>
+
+        <div class="lg:col-span-6 lg:col-start-7" data-reveal style="--delay: 100ms">
+          <p class="eyebrow">Who we are</p>
+          <h2 class="h2 mt-5" id="who-title">A diverse family, gathered by grace.</h2>
+          <p class="lead mt-6">{site.whoWeAre}</p>
+          <blockquote class="pullquote">{site.tagline}</blockquote>
+          <div class="mt-8 flex flex-wrap items-center gap-5">
+            <a class="btn btn--ghost" href="/about">
+              Meet our church
+              <Icon name="arrow-right" size={16} />
+            </a>
+            <a class="text-link" href="/leadership">
+              Our leadership
+              <Icon name="arrow-right" size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-[var(--paper-2)]" aria-labelledby="sermons-title">
+    <div class="container-page">
+      <div class="section-top">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Sermons</p>
+          <h2 class="h2" id="sermons-title">Recent teaching.</h2>
+          <p class="lead">{site.word}</p>
+        </div>
+        <a class="text-link shrink-0" href="/sermons" data-reveal>
+          All sermons
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+
+      <div class="sermon-grid">
+        {
+          latestSermons.map((sermon, index) => (
+            <div data-reveal style={`--delay: ${index * 80}ms`}>
+              <SermonCard sermon={sermon} index={index + 1} />
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-7 flex items-start gap-3" data-reveal>
+        <Icon name="info" size={16} class="mt-0.5 shrink-0 text-[var(--gold)]" />
+        <p class="text-[0.8rem] leading-relaxed text-[var(--ink-faint)]">
+          <!-- TODO: confirm with church — add audio/video links and speaker-approved summaries for each sermon. -->
+          Recordings and notes are being added to the site. Message us if you would like a copy
+          of a recent sermon.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="events-title">
+    <div class="container-page">
+      <div class="section-top">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Church life</p>
+          <h2 class="h2" id="events-title">Coming up.</h2>
+          <p class="lead">The centre of our week is Sunday worship. Special gatherings will appear here as details are confirmed.</p>
+        </div>
+        <a class="text-link shrink-0" href="/events" data-reveal>
+          See the calendar
+          <Icon name="calendar" size={16} />
+        </a>
+      </div>
+
+      <div class="event-strip" data-reveal>
+        <div class="event-strip__main">
+          <p class="event-strip__kicker">
+            <Icon name="sun" size={16} />
+            Every week
+          </p>
+          <h3 class="event-strip__title">{events.weekly.title}</h3>
+          <div class="event-strip__meta">
+            <span><Icon name="calendar" size={15} /> Sundays</span>
+            <span><Icon name="clock" size={15} /> 9:00AM</span>
+            <span><Icon name="map-pin" size={15} /> IOI Boulevard, Puchong</span>
+          </div>
+          <p class="mt-4 max-w-xl text-[0.9rem] leading-relaxed text-[var(--ink-soft)]">
+            {events.weekly.description}
+          </p>
+          <a class="btn btn--primary mt-6" href="/visit">
+            Plan your first Sunday
+            <Icon name="arrow-right" size={16} />
+          </a>
+        </div>
+        <div class="event-strip__side">
+          <p class="event-strip__kicker">
+            <Icon name="sparkles" size={16} />
+            More to come
+          </p>
+          <h3 class="font-display text-[1.55rem] leading-tight tracking-[-0.025em]">
+            Special gatherings
+          </h3>
+          <p class="text-[0.875rem] leading-relaxed text-[var(--ink-soft)]">
+            Dates for shared meals, Story Time and church-wide gatherings are being confirmed.
+            Ask us and we will keep you in the loop.
+          </p>
+          <a
+            class="text-link"
+            href={site.contact.whatsapp}
+            target="_blank"
+            rel="noopener"
+          >
+            Ask what's on
+            <Icon name="message-circle" size={16} />
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beliefs-band section" aria-labelledby="beliefs-title">
+    <Arches class="beliefs-band__arches" />
+    <div class="container-page">
+      <div class="beliefs-band__head lg:grid lg:grid-cols-12 lg:items-end lg:gap-16">
+        <div class="lg:col-span-7" data-reveal>
+          <p class="eyebrow eyebrow--light">What we believe</p>
+          <h2 class="h2 mt-5" id="beliefs-title">The story we live in.</h2>
+        </div>
+        <div class="mt-7 lg:col-span-5 lg:mt-0" data-reveal style="--delay: 80ms">
+          <p class="lead beliefs-band__lead">
+            From creation to consummation, the Bible tells one story of grace. These five
+            movements are the shape of our faith.
+          </p>
+          <a class="text-link beliefs-band__link mt-4" href="/beliefs">
+            Read what we believe
+            <Icon name="arrow-right" size={16} />
+          </a>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline__line" data-reveal aria-hidden="true"></div>
+        <div class="timeline__items">
+          {
+            beliefs.points.map((point, index) => (
+              <article
+                class="timeline__item"
+                data-reveal
+                style={`--delay: ${index * 80}ms`}
+              >
+                <span class="timeline__dot" aria-hidden="true" />
+                <span class="timeline__number">{point.number}</span>
+                <h3 class="timeline__title">{point.title}</h3>
+                <p class="timeline__text">{point.short}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="library-title">
+    <div class="container-page">
+      <div class="library-feature" data-reveal>
+        <div class="library-feature__grid">
+          <div class="library-feature__copy">
+            <p class="eyebrow">Children's Library</p>
+            <h2 class="h2 mt-5" id="library-title">A library that grows with you.</h2>
+            <p class="lead mt-5">{site.library}</p>
+            <div class="library-feature__list">
+              <span class="chip">English collection</span>
+              <span class="chip">Story Time</span>
+              <span class="chip">Toddlers to adults</span>
+            </div>
+            <div class="mt-8 flex flex-wrap items-center gap-5">
+              <a class="btn btn--primary" href="/childrens-library">
+                Explore the library
+                <Icon name="arrow-right" size={16} />
+              </a>
+              <span class="status-chip">Story Time dates being confirmed</span>
+            </div>
+          </div>
+          <div class="library-feature__media">
+            <Picture
+              src={libraryImage}
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              widths={[480, 800, 1200, 1600]}
+              sizes="(min-width: 900px) 45vw, 100vw"
+              alt="Abstract artwork of a library alcove filled with colourful book spines"
+              loading="lazy"
+              quality={82}
+              decoding="async"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm" aria-labelledby="map-title">
+    <div class="container-page">
+      <div class="section-head mb-10" data-reveal>
+        <p class="eyebrow">Find us</p>
+        <h2 class="h2" id="map-title">In the heart of Puchong Jaya.</h2>
+        <p class="lead">Come up to the 7th floor of IOI Boulevard. We meet in Unit B, 01.</p>
+      </div>
+
+      <div class="map-card" data-reveal>
+        <div class="map-card__art">
+          <MapArt />
+        </div>
+        <div class="map-card__body">
+          <div>
+            <p class="eyebrow">Sunday worship</p>
+            <p class="font-display mt-4 text-[2.15rem] leading-none tracking-[-0.035em]">
+              9:00AM
+            </p>
+            <!-- TODO: confirm with church — verify the exact unit. Old site footer listed "B-7-1"; supplied address lists "Unit B, 01, 7th Floor". -->
+            <address class="address mt-5">
+              <strong>7th Floor, IOI Boulevard, Unit B, 01</strong><br />
+              Jalan Kenari 5, Bandar Puchong Jaya<br />
+              47170 Puchong, Selangor, Malaysia
+            </address>
+          </div>
+          <div>
+            <div class="map-actions">
+              <a
+                class="btn btn--primary btn--small"
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener"
+              >
+                <Icon name="map-pin" size={16} />
+                Open in Google Maps
+                <span class="sr-only"> (opens in a new tab)</span>
+              </a>
+              <a class="btn btn--ghost btn--small" href={wazeUrl} target="_blank" rel="noopener">
+                <Icon name="navigation" size={16} />
+                Open in Waze <span class="sr-only"> (opens in a new tab)</span></a>
+              <a
+                class="btn btn--ghost btn--small"
+                href={site.contact.whatsapp}
+                target="_blank"
+                rel="noopener"
+              >
+                <Icon name="message-circle" size={16} />
+                WhatsApp
+                <span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            </div>
+            <a class="text-link mt-4" href="/where-we-gather">
+              More on getting here
+              <Icon name="arrow-right" size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

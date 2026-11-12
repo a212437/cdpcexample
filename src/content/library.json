@@ -1,0 +1,22 @@
+{
+  "intro": "A library with a great collection of English books with a Story Time session, catered for people from toddlers to adults.",
+  "storyTime": {
+    "heading": "Story Time",
+    "status": "to-confirm",
+    "text": "A Story Time session is part of the library's life. The current day, time and format are being confirmed with the church."
+  },
+  "collection": {
+    "heading": "For every age",
+    "text": "The collection is in English and is catered for people from toddlers to adults."
+  },
+  "borrowing": {
+    "heading": "Borrowing",
+    "status": "to-confirm",
+    "text": "Borrowing arrangements, opening hours and how to join the library are being confirmed."
+  },
+  "location": {
+    "heading": "Finding the library",
+    "status": "to-confirm",
+    "text": "The library is part of the church's life at IOI Boulevard. Exact opening times and where to find it within the venue are being confirmed."
+  }
+}

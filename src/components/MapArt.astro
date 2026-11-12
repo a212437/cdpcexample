@@ -1,0 +1,112 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<svg
+  class:list={['map-art', className]}
+  viewBox="0 0 820 600"
+  role="img"
+  aria-labelledby="map-art-title map-art-desc"
+  preserveAspectRatio="xMidYMid slice"
+>
+  <title id="map-art-title">Illustrated map of CDPC Puchong at IOI Boulevard</title>
+  <desc id="map-art-desc">
+    An illustrated, not-to-scale map showing IOI Boulevard and Jalan Kenari 5 in Bandar
+    Puchong Jaya, with a pin for the church on the 7th floor.
+  </desc>
+  <defs>
+    <linearGradient id="map-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e7eadb" />
+      <stop offset="1" stop-color="#d4ddca" />
+    </linearGradient>
+    <filter id="map-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#23362a" flood-opacity=".18" />
+    </filter>
+  </defs>
+
+  <rect width="820" height="600" fill="url(#map-bg)" />
+
+  <g opacity=".55">
+    <path d="M-40 472 240 214l154 120 240-246 186 158" fill="none" stroke="#c3d0b6" stroke-width="66" />
+    <path d="M-20 90c150 72 275 76 410 12S650 38 850 92" fill="none" stroke="#dfe5d3" stroke-width="44" />
+  </g>
+
+  <g fill="#c8d4bc" opacity=".9">
+    <rect x="82" y="118" width="136" height="96" rx="8" transform="rotate(-10 82 118)" />
+    <rect x="92" y="272" width="122" height="112" rx="8" transform="rotate(8 92 272)" />
+    <rect x="284" y="108" width="148" height="88" rx="8" transform="rotate(5 284 108)" />
+    <rect x="552" y="86" width="142" height="120" rx="8" transform="rotate(-6 552 86)" />
+    <rect x="640" y="326" width="152" height="130" rx="8" transform="rotate(8 640 326)" />
+    <rect x="288" y="410" width="170" height="104" rx="8" transform="rotate(-5 288 410)" />
+    <rect x="86" y="452" width="132" height="92" rx="8" transform="rotate(4 86 452)" />
+  </g>
+
+  <g fill="#b9c8aa" opacity=".78">
+    <circle cx="706" cy="281" r="38" />
+    <circle cx="748" cy="316" r="16" />
+    <circle cx="688" cy="530" r="52" />
+    <circle cx="122" cy="414" r="20" />
+    <circle cx="625" cy="454" r="14" />
+  </g>
+
+  <g fill="none" stroke="#f7f2e6" stroke-linecap="round">
+    <path d="M-30 240c122 8 248 54 358 130 112 78 208 142 522 160" stroke-width="42" />
+    <path d="M312 620c-6-156 30-294 114-400 72-92 138-150 196-252" stroke-width="22" />
+    <path d="M-20 498c180-12 294-58 418-129 128-72 262-104 444-82" stroke-width="16" />
+    <path d="M548 -20c-46 100-64 206-42 308 22 100 62 194 118 332" stroke-width="12" />
+    <path d="M-20 116c176 28 338 30 512 8 96-12 196-38 344-52" stroke-width="10" />
+  </g>
+
+  <g fill="#f7f2e6">
+    <path d="m210 330 26 10-18 20-22-12Z" opacity=".82" />
+    <path d="m540 174 22 14-16 18-24-12Z" opacity=".72" />
+    <path d="m470 482 26 4-10 22-32-8Z" opacity=".68" />
+  </g>
+
+  <g>
+    <text x="114" y="262" class="map-art__label" transform="rotate(-9 114 262)">
+      Jalan Kenari 5
+    </text>
+    <text x="524" y="372" class="map-art__label" transform="rotate(19 524 372)">
+      IOI Boulevard
+    </text>
+    <text x="548" y="520" class="map-art__label" transform="rotate(-4 548 520)">
+      Bandar Puchong Jaya
+    </text>
+  </g>
+
+  <g filter="url(#map-shadow)">
+    <circle cx="408" cy="318" r="64" fill="#a24b2b" opacity=".12" class="map-art__pulse" />
+    <path
+      d="M408 254c-30 0-54 23-54 52 0 38 54 88 54 88s54-50 54-88c0-29-24-52-54-52Z"
+      fill="#a24b2b"
+    />
+    <circle cx="408" cy="306" r="19" fill="#f7f1e6" />
+    <path d="M393 323v-17a15 15 0 0 1 30 0v17" fill="none" stroke="#a24b2b" stroke-width="2.4" />
+  </g>
+
+  <g transform="translate(478 238)">
+    <rect width="212" height="52" rx="12" fill="#fcf8ef" filter="url(#map-shadow)" />
+    <text x="16" y="22" fill="#25392d" font-family="Instrument Sans Variable, Helvetica, sans-serif" font-size="12.5" font-weight="650" letter-spacing=".02em">
+      CDPC Puchong
+    </text>
+    <text x="16" y="39" fill="#6b766b" font-family="Instrument Sans Variable, Helvetica, sans-serif" font-size="10.5" letter-spacing=".04em">
+      7th Floor · IOI Boulevard
+    </text>
+  </g>
+
+  <g transform="translate(728 54)">
+    <circle cx="0" cy="0" r="28" fill="#fcf8ef" opacity=".82" />
+    <path d="M0-14 6 2 0-2-6 2Z" fill="#435846" />
+    <text x="-3" y="-19" fill="#435846" font-family="Instrument Sans Variable, sans-serif" font-size="8" font-weight="600">
+      N
+    </text>
+  </g>
+
+  <text x="34" y="574" fill="#667362" font-family="Instrument Sans Variable, Helvetica, sans-serif" font-size="9.5" letter-spacing=".13em">
+    ILLUSTRATED MAP · NOT TO SCALE
+  </text>
+</svg>

@@ -1,0 +1,34 @@
+{
+  "intro": "Worship at CDPC Puchong is centred on Jesus. We gather as diverse followers of Jesus to hear God's Word, respond to his grace and belong to one another.",
+  "pillars": [
+    {
+      "number": "01",
+      "title": "Christ-centred worship",
+      "text": "We gather together for Christ-centred worship — turning our attention to Jesus, the one who rescues and renews us."
+    },
+    {
+      "number": "02",
+      "title": "Scripture-based preaching",
+      "text": "We seek to centre ourselves on Christ, the Gospel and the Word through Scripture-based expository preaching."
+    },
+    {
+      "number": "03",
+      "title": "Grace-enabled spirituality",
+      "text": "Created for good but broken by evil, we believe God rescues us by his grace and renews us to be people of healing."
+    }
+  ],
+  "music": {
+    "heading": "Music and singing",
+    "status": "to-confirm",
+    "text": "The style of music and singing at CDPC Puchong is being confirmed. We would be glad to tell you more if you message us."
+  },
+  "online": {
+    "heading": "Watching online",
+    "status": "to-confirm",
+    "text": "We are confirming whether Sunday worship is available as a livestream. Please message us for the latest."
+  },
+  "children": {
+    "heading": "Children among us",
+    "text": "Our Children's Library offers a great collection of English books with a Story Time session, catered for people from toddlers to adults."
+  }
+}

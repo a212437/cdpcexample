@@ -1,0 +1,181 @@
+---
+import site from '../content/site.json';
+import Icon from './Icon.astro';
+import LogoMark from './LogoMark.astro';
+
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+const isActive = (href: string) => {
+  if (href === '/') return path === '/';
+  return path === href || path.startsWith(`${href}/`);
+};
+
+const aboutActive = ['/about', '/leadership', '/childrens-library'].some(isActive);
+
+const nav = [
+  {
+    label: 'About',
+    href: '/about',
+    active: aboutActive,
+    children: [
+      { label: 'Who we are', href: '/about' },
+      { label: 'Leadership', href: '/leadership' },
+      { label: "Children's Library", href: '/childrens-library' },
+    ],
+  },
+  { label: 'What We Believe', href: '/beliefs', active: isActive('/beliefs') },
+  { label: 'Worship', href: '/worship', active: isActive('/worship') },
+  { label: 'Sermons', href: '/sermons', active: isActive('/sermons') },
+  { label: 'Events', href: '/events', active: isActive('/events') },
+  { label: 'Visit Us', href: '/visit', active: isActive('/visit') },
+];
+
+const headerClass = [
+  'site-header',
+  transparent ? 'site-header--overlay' : 'site-header--solid',
+].join(' ');
+---
+
+<header class={headerClass} data-site-header>
+  <div class="site-header__backdrop" aria-hidden="true"></div>
+  <div class="container-page site-header__inner">
+    <a class="brand" href="/" aria-label="CDPC Puchong — home">
+      <LogoMark class="brand__mark" />
+      <span class="brand__text">
+        <span class="brand__name">CDPC</span>
+        <span class="brand__place">Puchong</span>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <ul class="desktop-nav__list">
+        {
+          nav.map((item) => (
+            <li class:list={['nav-item', item.children ? 'has-menu' : '']}>
+              <a
+                class="nav-link"
+                href={item.href}
+                aria-current={item.active ? 'page' : undefined}
+              >
+                {item.label}
+                {item.children && <Icon name="chevron-down" size={13} strokeWidth={1.8} />}
+              </a>
+              {item.children && (
+                <ul class="nav-menu">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        class="nav-menu__link"
+                        href={child.href}
+                        aria-current={isActive(child.href) ? 'page' : undefined}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="btn btn--primary btn--small header-cta" href="/visit">
+        Plan Your Visit
+        <Icon name="arrow-right" size={16} />
+      </a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        data-menu-open
+      >
+        <Icon name="menu" size={21} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<div
+  class="mobile-menu"
+  id="mobile-menu"
+  aria-hidden="true"
+  aria-label="Site menu"
+  data-mobile-menu
+  inert
+>
+  <div class="container-page mobile-menu__top">
+    <a class="brand" href="/" aria-label="CDPC Puchong — home">
+      <LogoMark class="brand__mark" />
+      <span class="brand__text">
+        <span class="brand__name">CDPC</span>
+        <span class="brand__place">Puchong</span>
+      </span>
+    </a>
+    <button class="mobile-menu__close" type="button" aria-label="Close menu" data-menu-close>
+      <Icon name="x" size={21} />
+    </button>
+  </div>
+
+  <nav class="container-page mobile-menu__nav" aria-label="Mobile primary">
+    <ul class="mobile-menu__list">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              class="mobile-menu__link"
+              href={item.href}
+              aria-current={item.active ? 'page' : undefined}
+              data-menu-link
+            >
+              {item.label}
+              <Icon name="arrow-up-right" size={18} />
+            </a>
+            {item.children && (
+              <ul class="mobile-menu__sub">
+                {item.children.map((child) => (
+                  <li>
+                    <a href={child.href} data-menu-link>
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))
+      }
+      <li>
+        <a class="mobile-menu__link" href="/where-we-gather" data-menu-link>
+          Where we gather
+          <Icon name="arrow-up-right" size={18} />
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container-page mobile-menu__footer">
+    <a class="btn btn--primary" href="/visit" data-menu-link>
+      Plan Your Visit
+      <Icon name="arrow-right" size={17} />
+    </a>
+    <p class="mobile-menu__meta">
+      Sundays · 9:00AM<br />
+      7th Floor, IOI Boulevard, Unit B, 01<br />
+      Bandar Puchong Jaya, Selangor
+    </p>
+    <p class="mobile-menu__meta">
+      <a class="link-underline" href={site.contact.whatsapp} target="_blank" rel="noopener">
+        {site.contact.whatsappLabel} <span class="sr-only"> (opens in a new tab)</span></a>
+    </p>
+  </div>
+</div>

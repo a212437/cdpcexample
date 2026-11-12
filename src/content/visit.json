@@ -1,0 +1,128 @@
+{
+  "intro": "You don't need to have it all together to come and meet us. Here is what a first Sunday looks like, with the practical details we know so far.",
+  "welcome": "Whether you have followed Jesus for years or you are simply curious, there is a place for you here. Come as you are, and let us welcome you.",
+  "cards": [
+    {
+      "id": "when",
+      "title": "When we meet",
+      "status": "confirmed",
+      "text": "Worship Service every Sunday at 9:00AM."
+    },
+    {
+      "id": "where",
+      "title": "Where to find us",
+      "status": "confirmed",
+      "text": "7th Floor, IOI Boulevard, Unit B, 01, Jalan Kenari 5, Bandar Puchong Jaya."
+    },
+    {
+      "id": "parking",
+      "title": "Parking",
+      "status": "to-confirm",
+      "text": "We are confirming the easiest parking option at IOI Boulevard. Message us before your first Sunday and we will help you plan the morning."
+    },
+    {
+      "id": "wear",
+      "title": "What to wear",
+      "status": "to-confirm",
+      "text": "There is no need to dress up on our account. Come as you are — and if you would like to know what is typical, just ask us."
+    },
+    {
+      "id": "length",
+      "title": "How long it lasts",
+      "status": "to-confirm",
+      "text": "We are confirming the usual length of the service. Message us and we will be glad to tell you what to expect."
+    },
+    {
+      "id": "language",
+      "title": "Language",
+      "status": "to-confirm",
+      "text": "We will publish the language of the service here once confirmed. Please message us in the meantime."
+    },
+    {
+      "id": "children",
+      "title": "Children",
+      "status": "partly-confirmed",
+      "text": "Our Children's Library has a great collection of English books and a Story Time session for toddlers to adults. Sunday children's programme and check-in details are being confirmed."
+    },
+    {
+      "id": "accessibility",
+      "title": "Access & accessibility",
+      "status": "to-confirm",
+      "text": "Step-free access, lift and accessibility details are being confirmed with the church and the building."
+    }
+  ],
+  "arrival": {
+    "heading": "Finding the room",
+    "status": "to-confirm",
+    "text": "We are confirming the clearest way to find Unit B, 01 from the IOI Boulevard lift lobby. Message us before you come and we will make sure you know where to go."
+  },
+  "flow": {
+    "note": "This is a general outline. The exact order and timings of the service are being confirmed.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Arrive and say hello",
+        "text": "Come a few minutes early and let us welcome you. Greeting details are being confirmed."
+      },
+      {
+        "number": "02",
+        "title": "Worship together",
+        "text": "We gather together for Christ-centred worship."
+      },
+      {
+        "number": "03",
+        "title": "Listen to the Word",
+        "text": "Scripture is read and preached, centring us on Christ, the Gospel and the Word."
+      },
+      {
+        "number": "04",
+        "title": "Respond",
+        "text": "We make room to respond to God together. The shape of this part of the service is being confirmed."
+      },
+      {
+        "number": "05",
+        "title": "Stay a while",
+        "text": "We would love to meet you after the service. Conversation and refreshment details are being confirmed."
+      }
+    ]
+  },
+  "people": {
+    "heading": "Who you will meet",
+    "text": "You will be among ordinary people following Jesus. Pastor Josh Ng, our elders and our deacons serve the church; you can meet them before you arrive.",
+    "note": "Specific greeters and follow-up details are being confirmed."
+  },
+  "faqs": [
+    {
+      "question": "Do I need to book or let someone know I am coming?",
+      "answer": "We are confirming whether a heads-up is helpful for first-time guests. The simplest way to reach us is a WhatsApp message — we would love to help you plan your visit."
+    },
+    {
+      "question": "What time should I arrive?",
+      "answer": "Worship begins at 9:00AM on Sundays. We recommend arriving a little before nine so you have time to find the room and settle in without rushing."
+    },
+    {
+      "question": "Where exactly are you in IOI Boulevard?",
+      "answer": "We meet on the 7th Floor at IOI Boulevard, Unit B, 01, Jalan Kenari 5, Bandar Puchong Jaya. The exact route from the lift lobby is being confirmed."
+    },
+    {
+      "question": "What is the service like?",
+      "answer": "We gather for Christ-centred worship, Scripture-based expository preaching and grace-enabled spirituality. A more detailed order of service is being confirmed."
+    },
+    {
+      "question": "What about my children?",
+      "answer": "Our Children's Library offers a great collection of English books with a Story Time session, catered for people from toddlers to adults. Details of Sunday children's programmes and check-in are being confirmed — message us and we will help."
+    },
+    {
+      "question": "Where can I park?",
+      "answer": "Parking details at IOI Boulevard are being confirmed. Message us before your first Sunday and we will point you to the best option."
+    },
+    {
+      "question": "Can I watch the service online?",
+      "answer": "We are confirming whether a livestream is available. Please message us on WhatsApp for the latest."
+    },
+    {
+      "question": "Who can I contact before I come?",
+      "answer": "You can message us directly on WhatsApp. A real person from the church will help with directions, children, or anything else you are wondering about."
+    }
+  ]
+}

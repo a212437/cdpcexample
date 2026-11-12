@@ -1,0 +1,194 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SundayCard from '../components/SundayCard.astro';
+import MapArt from '../components/MapArt.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+import site from '../content/site.json';
+import visit from '../content/visit.json';
+
+const description =
+  'Find CDPC Puchong at 7th Floor, IOI Boulevard, Unit B, 01, Jalan Kenari 5, Bandar Puchong Jaya. Directions, parking, lift access and arrival details.';
+
+const mapQuery = encodeURIComponent(site.address.full);
+const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+const wazeUrl = `https://www.waze.com/ul?q=${encodeURIComponent(
+  `${site.address.unit}, ${site.address.street}, ${site.address.city}`,
+)}&navigate=yes`;
+
+const cardById = (id: string) => visit.cards.find((card) => card.id === id);
+const parking = cardById('parking');
+const accessibility = cardById('accessibility');
+---
+
+<BaseLayout title="Where We Gather" description={description}>
+  <PageHero
+    eyebrow="Where we gather"
+    title="Find your way to us."
+    intro="We meet on the 7th floor of IOI Boulevard in Bandar Puchong Jaya. Here is everything we know so far about getting to the room."
+    breadcrumbs={[{ label: 'Visit', href: '/visit' }, { label: 'Where we gather' }]}
+  >
+    <SundayCard slot="aside" />
+  </PageHero>
+
+  <section class="section" aria-labelledby="location-title">
+    <div class="container-page">
+      <div class="map-card" data-reveal>
+        <div class="map-card__art">
+          <MapArt />
+        </div>
+        <div class="map-card__body">
+          <div>
+            <p class="eyebrow">The address</p>
+            <!-- TODO: confirm with church — verify the exact unit. Old site footer listed "B-7-1"; supplied address lists "Unit B, 01, 7th Floor". -->
+            <address class="address mt-4">
+              <strong>7th Floor, IOI Boulevard, Unit B, 01</strong><br />
+              Jalan Kenari 5, Bandar Puchong Jaya<br />
+              47170 Puchong, Selangor, Malaysia
+            </address>
+            <p class="mt-4 flex items-center gap-2 text-[0.85rem] text-[var(--ink-soft)]">
+              <Icon name="clock" size={16} class="text-[var(--accent)]" />
+              Sundays · Worship Service at 9:00AM
+            </p>
+          </div>
+          <div>
+            <div class="map-actions">
+              <a class="btn btn--primary btn--small" href={googleMapsUrl} target="_blank" rel="noopener">
+                <Icon name="map-pin" size={16} />
+                Google Maps <span class="sr-only"> (opens in a new tab)</span></a>
+              <a class="btn btn--ghost btn--small" href={wazeUrl} target="_blank" rel="noopener">
+                <Icon name="navigation" size={16} />
+                Waze <span class="sr-only"> (opens in a new tab)</span></a>
+            </div>
+            <a
+              class="mt-4 flex min-h-11 items-center gap-2 text-[0.82rem] font-semibold text-[var(--ink-soft)] transition-colors hover:text-[var(--accent)]"
+              href={site.contact.whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="message-circle" size={16} />
+              Ask us for directions
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="mt-4 text-[0.75rem] leading-relaxed text-[var(--ink-faint)]">
+        The map is illustrative and not to scale. Use the buttons above for live navigation.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-sm bg-[var(--paper-2)]" aria-labelledby="building-title">
+    <div class="container-page">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">The building</p>
+        <h2 class="h2" id="building-title">Once you arrive.</h2>
+        <p class="lead">
+          We are still confirming the clearest route from the lift lobby and the best place
+          to park. If anything is unclear, message us before Sunday and we will help.
+        </p>
+      </div>
+
+      <div class="mt-9 grid gap-3 md:grid-cols-3">
+        {
+          parking && (
+            <div data-reveal>
+              <InfoCard
+                icon="navigation"
+                title={parking.title}
+                status={parking.status as 'confirmed' | 'to-confirm' | 'partly-confirmed'}
+                text={parking.text}
+              />
+            </div>
+          )
+        }
+        <div data-reveal style="--delay: 60ms">
+          <InfoCard
+            icon="map-pin"
+            title={visit.arrival.heading}
+            status={visit.arrival.status as 'confirmed' | 'to-confirm' | 'partly-confirmed'}
+            text={visit.arrival.text}
+          />
+        </div>
+        {
+          accessibility && (
+            <div data-reveal style="--delay: 120ms">
+              <InfoCard
+                icon="accessibility"
+                title={accessibility.title}
+                status={accessibility.status as 'confirmed' | 'to-confirm' | 'partly-confirmed'}
+                text={accessibility.text}
+              />
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="welcome-title">
+    <div class="container-page">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-5" data-reveal>
+          <p class="eyebrow">A helping hand</p>
+          <h2 class="h2 mt-5" id="welcome-title">You do not have to find us alone.</h2>
+          <p class="lead mt-6">
+            If you are unsure about parking, the lift, which door to use, or anything else,
+            send us a message. Someone from the church will be glad to guide you in.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              class="btn btn--primary"
+              href={site.contact.whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="message-circle" size={17} />
+              Message us on WhatsApp
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+            <a class="btn btn--ghost" href="/visit">
+              Plan your visit
+              <Icon name="arrow-right" size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 lg:col-start-7" data-reveal style="--delay: 100ms">
+          <div class="invite-panel">
+            <div>
+              <p class="eyebrow">Good to know</p>
+              <ul class="mt-5 space-y-4 text-[0.92rem] leading-relaxed text-[var(--ink-soft)]">
+                <li class="flex gap-3">
+                  <Icon name="map-pin" size={17} class="mt-0.5 shrink-0 text-[var(--accent)]" />
+                  <span>We meet on the 7th floor. Use the IOI Boulevard lift lobby to reach the floor.</span>
+                </li>
+                <li class="flex gap-3">
+                  <Icon name="clock" size={17} class="mt-0.5 shrink-0 text-[var(--accent)]" />
+                  <span>Worship begins at 9:00AM. We recommend arriving a little early.</span>
+                </li>
+                <li class="flex gap-3">
+                  <Icon name="message-circle" size={17} class="mt-0.5 shrink-0 text-[var(--accent)]" />
+                  <span>Exact door, lift and accessibility details are being confirmed with the building.</span>
+                </li>
+              </ul>
+            </div>
+            <a class="text-link mt-2" href="/childrens-library">
+              Children's Library
+              <Icon name="arrow-right" size={15} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="See you on Sunday"
+    title="We will look out for you."
+    text="Come to the 7th floor of IOI Boulevard at 9:00AM. If you would like a friendly welcome, message us before you arrive."
+  />
+</BaseLayout>

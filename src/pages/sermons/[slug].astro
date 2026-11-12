@@ -1,0 +1,317 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import { Picture } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Arches from '../../components/Arches.astro';
+import CTABand from '../../components/CTABand.astro';
+import Icon from '../../components/Icon.astro';
+import site from '../../content/site.json';
+import heroImage from '../../assets/images/hero-placeholder.jpg';
+
+export async function getStaticPaths() {
+  const sermons = await getCollection('sermons');
+  return sermons.map((sermon) => ({
+    params: { slug: sermon.id },
+    props: { sermon },
+  }));
+}
+
+interface Props {
+  sermon: CollectionEntry<'sermons'>;
+}
+
+const { sermon } = Astro.props;
+const { Content } = await render(sermon);
+
+const sermons = (await getCollection('sermons')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const currentIndex = sermons.findIndex((entry) => entry.id === sermon.id);
+const newerSermon = currentIndex > 0 ? sermons[currentIndex - 1] : null;
+const olderSermon =
+  currentIndex >= 0 && currentIndex < sermons.length - 1 ? sermons[currentIndex + 1] : null;
+
+const dateLabel = new Intl.DateTimeFormat('en-MY', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(sermon.data.date);
+
+const description =
+  sermon.data.summary ??
+  `A sermon by ${sermon.data.speaker} at CDPC Puchong on ${dateLabel}. Read and reflect on Scripture with us.`;
+
+const siteUrl = Astro.site ?? new URL('http://localhost:4321');
+const sermonUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: sermon.data.title,
+  description,
+  datePublished: sermon.data.date.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: sermon.data.speaker,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/favicon.svg', siteUrl).toString(),
+    },
+  },
+  mainEntityOfPage: sermonUrl,
+  url: sermonUrl,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: new URL('/', siteUrl).toString(),
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Sermons',
+      item: new URL('/sermons', siteUrl).toString(),
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: sermon.data.title,
+      item: sermonUrl,
+    },
+  ],
+};
+---
+
+<BaseLayout title={sermon.data.title} description={description} ogType="article">
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify([articleSchema, breadcrumbSchema])}
+  />
+
+  <section class="sermon-hero" aria-labelledby="sermon-title">
+    <div class="sermon-hero__media" aria-hidden="true">
+      <Picture
+        src={heroImage}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpg"
+        widths={[960, 1600, 2200]}
+        sizes="100vw"
+        alt=""
+        loading="eager"
+        fetchpriority="high"
+        quality={80}
+        decoding="async"
+      />
+    </div>
+    <div class="sermon-hero__veil" aria-hidden="true"></div>
+    <Arches class="sermon-hero__arches" />
+    <div class="container-page sermon-hero__inner">
+      <Breadcrumbs
+        items={[{ label: 'Sermons', href: '/sermons' }, { label: sermon.data.title }]}
+      />
+      <p class="eyebrow eyebrow--light mt-8">Sermon</p>
+      <h1 class="sermon-hero__title mt-5" id="sermon-title">{sermon.data.title}</h1>
+      <div class="sermon-hero__meta">
+        <span>{sermon.data.speaker}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime={sermon.data.date.toISOString()}>{dateLabel}</time>
+        <span aria-hidden="true">·</span>
+        <span>CDPC Puchong</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-page">
+      <div class="sermon-detail">
+        <article class="sermon-article" data-reveal>
+          <div class="sermon-article__head">
+            <p class="eyebrow">Read &amp; reflect</p>
+            {sermon.data.summary && <p class="lead mt-4">{sermon.data.summary}</p>}
+          </div>
+          <div class="prose mt-8">
+            <Content />
+          </div>
+          <div class="sermon-article__foot">
+            <p class="text-[0.8rem] leading-relaxed text-[var(--ink-faint)]">
+              Want to talk about this sermon, ask a question or request prayer? We would be
+              glad to hear from you.
+            </p>
+            <a
+              class="text-link shrink-0"
+              href={site.contact.whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="message-circle" size={16} />
+              Message the church
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+
+          <div class="sermon-invite">
+            <Arches class="sermon-invite__arches" />
+            <p class="eyebrow">Keep listening</p>
+            <h2 class="sermon-invite__title mt-4">There is a place for you this Sunday.</h2>
+            <p class="mt-4 max-w-md text-[0.9rem] leading-relaxed text-[var(--ink-soft)]">
+              Join us at 9:00AM on the 7th floor of IOI Boulevard, Puchong. Come as you are —
+              we would love to meet you.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a class="btn btn--primary" href="/visit">
+                Plan your visit
+                <Icon name="arrow-right" size={16} />
+              </a>
+              <a class="btn btn--ghost" href="/sermons">
+                All sermons
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <aside class="sermon-sidebar" data-reveal style="--delay: 100ms">
+          <div class="sermon-side-card">
+            <p class="eyebrow">At a glance</p>
+            <dl class="sermon-facts">
+              <div>
+                <dt>Date</dt>
+                <dd><time datetime={sermon.data.date.toISOString()}>{dateLabel}</time></dd>
+              </div>
+              <div>
+                <dt>Speaker</dt>
+                <dd>{sermon.data.speaker}</dd>
+              </div>
+              {
+                sermon.data.scripture && (
+                  <div>
+                    <dt>Scripture</dt>
+                    <dd>{sermon.data.scripture}</dd>
+                  </div>
+                )
+              }
+              <div>
+                <dt>Gathered</dt>
+                <dd>CDPC Puchong, IOI Boulevard</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="media-panel">
+            <span class="media-panel__icon" aria-hidden="true">
+              <Icon name="play" size={20} />
+            </span>
+            <p class="eyebrow eyebrow--light mt-6">Listen &amp; watch</p>
+            <h2 class="media-panel__title mt-3">The recording is on its way.</h2>
+            <!-- TODO: confirm with church — add approved audio/video URLs to the sermon's Markdown frontmatter. These buttons appear automatically when available. -->
+            <p class="media-panel__text mt-3">
+              Audio, video and full sermon notes are being added. In the meantime, message
+              us and we will help you listen or read more.
+            </p>
+            {
+              (sermon.data.audioUrl || sermon.data.videoUrl) && (
+                <div class="mt-6 flex flex-wrap gap-2">
+                  {sermon.data.audioUrl && (
+                    <a class="btn btn--on-dark" href={sermon.data.audioUrl} target="_blank" rel="noopener">
+                      Listen
+                      <Icon name="arrow-up-right" size={15} /> <span class="sr-only"> (opens in a new tab)</span></a>
+                  )}
+                  {sermon.data.videoUrl && (
+                    <a class="btn btn--on-dark" href={sermon.data.videoUrl} target="_blank" rel="noopener">
+                      Watch
+                      <Icon name="arrow-up-right" size={15} /> <span class="sr-only"> (opens in a new tab)</span></a>
+                  )}
+                </div>
+              )
+            }
+            {
+              !sermon.data.audioUrl && !sermon.data.videoUrl && (
+                <a
+                  class="btn btn--on-dark mt-6"
+                  href={site.contact.whatsapp}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <Icon name="message-circle" size={16} />
+                  Ask for the recording
+                  <span class="sr-only"> (opens in a new tab)</span>
+                </a>
+              )
+            }
+          </div>
+
+          <div class="sermon-side-card">
+            <p class="eyebrow">Keep exploring</p>
+            <ul class="mt-4 space-y-1">
+              <li>
+                <a class="text-link" href="/worship">
+                  About our worship
+                  <Icon name="arrow-right" size={15} />
+                </a>
+              </li>
+              <li>
+                <a class="text-link" href="/beliefs">
+                  What we believe
+                  <Icon name="arrow-right" size={15} />
+                </a>
+              </li>
+              <li>
+                <a class="text-link" href="/visit">
+                  Plan your visit
+                  <Icon name="arrow-right" size={15} />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <nav class="sermon-nav" aria-label="Sermon navigation">
+        {
+          newerSermon ? (
+            <a class="sermon-nav__link" href={`/sermons/${newerSermon.id}/`}>
+              <span class="sermon-nav__direction">Newer sermon</span>
+              <span class="sermon-nav__title">{newerSermon.data.title}</span>
+            </a>
+          ) : (
+            <span aria-hidden="true" />
+          )
+        }
+        <a class="sermon-nav__all" href="/sermons">
+          All sermons
+          <Icon name="arrow-right" size={15} />
+        </a>
+        {
+          olderSermon ? (
+            <a class="sermon-nav__link sermon-nav__link--next" href={`/sermons/${olderSermon.id}/`}>
+              <span class="sermon-nav__direction">Older sermon</span>
+              <span class="sermon-nav__title">{olderSermon.data.title}</span>
+            </a>
+          ) : (
+            <span aria-hidden="true" />
+          )
+        }
+      </nav>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="Sundays at 9:00AM"
+    title="Read with us. Pray with us. Gather with us."
+    text="Join us this Sunday at IOI Boulevard, Puchong, or message us before you come."
+  />
+</BaseLayout>

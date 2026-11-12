@@ -1,0 +1,36 @@
+{
+  "name": "cdpc-puchong",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The website of City Discipleship Presbyterian Church (CDPC Puchong)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "art": "node scripts/generate-art.mjs",
+    "og": "node scripts/generate-og.mjs",
+    "audit": "node scripts/audit.mjs",
+    "shots": "node scripts/shoot.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.6.0",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^5.18.2",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.4",
+    "playwright-core": "^1.64.1",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.3",
+    "vite": "6.4.5"
+  },
+  "overrides": {
+    "@astrojs/language-server": "2.16.2"
+  }
+}

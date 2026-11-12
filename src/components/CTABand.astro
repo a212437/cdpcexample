@@ -1,0 +1,46 @@
+---
+import site from '../content/site.json';
+import Icon from './Icon.astro';
+import Arches from './Arches.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+}
+const {
+  eyebrow = 'Come and see',
+  title = 'There is a seat for you <em>this Sunday.</em>',
+  text = 'No performance, no perfect words, no need to have it all figured out. Come as you are; we would love to welcome you in person.',
+} = Astro.props;
+---
+
+<section class="cta-band" aria-labelledby="invitation-heading">
+  <Arches class="cta-band__arches" />
+  <div class="container-page cta-band__inner">
+    <div>
+      <p class="eyebrow eyebrow--light">{eyebrow}</p>
+      <h2 class="cta-band__title mt-5" id="invitation-heading" set:html={title} />
+      <p class="cta-band__copy">{text}</p>
+    </div>
+    <div class="cta-band__actions">
+      <a class="btn btn--light" href="/visit">
+        Plan Your Visit
+        <Icon name="arrow-right" size={17} />
+      </a>
+      <a
+        class="btn btn--ghost"
+        href={site.contact.whatsapp}
+        target="_blank"
+        rel="noopener"
+      >
+        <Icon name="message-circle" size={17} />
+        Ask a question
+        <span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <p class="cta-band__note text-center text-[0.73rem] tracking-wide text-[rgba(253,246,232,.62)]">
+        Sundays · 9:00AM · IOI Boulevard
+      </p>
+    </div>
+  </div>
+</section>

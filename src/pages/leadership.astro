@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import LeaderCard from '../components/LeaderCard.astro';
+import Icon from '../components/Icon.astro';
+import site from '../content/site.json';
+import leadership from '../content/leadership.json';
+
+const description =
+  'Meet the leadership of CDPC Puchong: Pastor Josh Ng, our elders and our deacons, serving the church in Bandar Puchong Jaya.';
+---
+
+<BaseLayout title="Leadership" description={description}>
+  <PageHero
+    eyebrow="Leadership"
+    title="Served by ordinary people."
+    intro={leadership.intro}
+    breadcrumbs={[{ label: 'About', href: '/about' }, { label: 'Leadership' }]}
+  />
+
+  <section class="section" aria-labelledby="pastor-title">
+    <div class="container-page">
+      <div class="pastor-card" data-reveal>
+        <div class="pastor-card__monogram" aria-hidden="true">JN</div>
+        <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <p class="eyebrow">Pastor</p>
+            <h2
+              class="mt-4 font-display text-[clamp(2.4rem,5vw,4rem)] leading-none tracking-[-0.04em]"
+              id="pastor-title"
+            >
+              {leadership.pastor.name}
+            </h2>
+            <p class="mt-4 max-w-xl text-[0.98rem] leading-relaxed text-[var(--ink-soft)]">
+              Pastor Josh Ng serves CDPC Puchong together with the elders and deacons. If you
+              would like to be connected before your first visit, please get in touch.
+            </p>
+          </div>
+          <a
+            class="btn btn--ghost justify-self-start lg:justify-self-end"
+            href={site.contact.whatsapp}
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="message-circle" size={17} />
+            Say hello
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm" aria-labelledby="elders-title">
+    <div class="container-page">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Elders</p>
+        <h2 class="h2" id="elders-title">Serving with wisdom and care.</h2>
+      </div>
+      <div class="leader-grid mt-8">
+        {
+          leadership.elders.map((name, index) => (
+            <div data-reveal style={`--delay: ${index * 50}ms`}>
+              <LeaderCard name={name} role="Elder" tone={index + 1} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm pt-0" aria-labelledby="deacons-title">
+    <div class="container-page">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Deacons</p>
+        <h2 class="h2" id="deacons-title">Serving the life of the church.</h2>
+      </div>
+      <div class="leader-grid mt-8">
+        {
+          leadership.deacons.map((name, index) => (
+            <div data-reveal style={`--delay: ${(index % 4) * 50}ms`}>
+              <LeaderCard name={name} role="Deacon" tone={index + 1} />
+            </div>
+          ))
+        }
+      </div>
+
+      <div
+        class="mt-10 flex flex-col gap-6 border-t border-[var(--line)] pt-6 sm:flex-row sm:items-center sm:justify-between"
+        data-reveal
+      >
+        <p class="max-w-xl text-[0.82rem] leading-relaxed text-[var(--ink-faint)]">
+          <!-- TODO: confirm with church — add approved portraits and short bios for the pastor, elders and deacons. -->
+          {leadership.portraitNote}
+        </p>
+        <a
+          class="text-link shrink-0"
+          href={site.contact.whatsapp}
+          target="_blank"
+          rel="noopener"
+        >
+          <Icon name="message-circle" size={16} />
+          Get in touch
+          <span class="sr-only"> (opens in a new tab)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm">
+    <div class="container-page">
+      <div class="invite-panel" data-reveal>
+        <div>
+          <p class="eyebrow">Come and meet us</p>
+          <h2 class="invite-panel__title mt-4">The best introductions happen in person.</h2>
+          <p class="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-[var(--ink-soft)]">
+            You do not need an appointment to join us on Sunday. If you would like to say
+            hello first, send us a message — we would be glad to hear from you.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a class="btn btn--primary" href="/visit">
+            Plan your visit
+            <Icon name="arrow-right" size={16} />
+          </a>
+          <a
+            class="btn btn--ghost"
+            href={site.contact.whatsapp}
+            target="_blank"
+            rel="noopener"
+          >
+            <Icon name="message-circle" size={16} />
+            WhatsApp
+            <span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

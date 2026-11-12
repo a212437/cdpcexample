@@ -1,0 +1,62 @@
+{
+  "intro": "Our beliefs are determined by the Bible — the 66 books of the Old and New Testaments, the true and inerrant words of God — with the Apostles' Creed, Nicene Creed and Westminster Standards as faithful summaries.",
+  "points": [
+    {
+      "id": "creation",
+      "number": "01",
+      "title": "Creation",
+      "text": "God made the universe and humankind in His likeness to be His representatives and to worship and enjoy Him forever.",
+      "short": "God made the universe and humankind in His likeness to worship and enjoy Him forever."
+    },
+    {
+      "id": "fall",
+      "number": "02",
+      "title": "Fall",
+      "text": "Humans disobeyed God, breaking our relationship with God, each other and creation; suffering and death entered the world.",
+      "short": "Humans disobeyed God, breaking our relationship with God, each other and creation."
+    },
+    {
+      "id": "redemption",
+      "number": "03",
+      "title": "Redemption",
+      "text": "God showed mercy; His Son Jesus died as a sacrifice for sins and rose on the third day, so that those who believe would not perish but have everlasting life.",
+      "short": "God showed mercy; His Son Jesus died for sins and rose on the third day."
+    },
+    {
+      "id": "renewal",
+      "number": "04",
+      "title": "Renewal",
+      "text": "Jesus' death and resurrection ushers in a new creation; the Holy Spirit transforms those who trust Him; we are gathered as a community to worship and to be agents of renewal.",
+      "short": "Jesus ushers in a new creation, and the Holy Spirit transforms those who trust Him."
+    },
+    {
+      "id": "consummation",
+      "number": "05",
+      "title": "Consummation",
+      "text": "Jesus will return as king and judge and bring renewal to perfection; those who trust Him enjoy eternal life with Him.",
+      "short": "Jesus will return as king and judge and bring renewal to perfection."
+    }
+  ],
+  "scripture": {
+    "heading": "The Bible",
+    "text": "Beliefs are determined by the Bible: the 66 books of the Old and New Testaments, the true and inerrant words of God."
+  },
+  "creeds": {
+    "heading": "Faithful summaries",
+    "text": "We read Scripture with the church across time. The Apostles' Creed, the Nicene Creed and the Westminster Standards are faithful summaries of what we believe.",
+    "apostlesCreed": [
+      "I believe in God, the Father almighty, creator of heaven and earth.",
+      "I believe in Jesus Christ, his only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried; he descended to the dead. On the third day he rose again; he ascended into heaven, he is seated at the right hand of the Father, and he will come to judge the living and the dead.",
+      "I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and the life everlasting. Amen."
+    ],
+    "catholicNote": "In the creed, “catholic” means the whole, universal church — not a particular denomination.",
+    "nicene": {
+      "label": "The Nicene Creed",
+      "url": "https://rts.edu/historical-creeds-of-faith/the-nicene-creed/"
+    },
+    "westminster": {
+      "label": "Westminster Standards",
+      "url": "https://westminsterstandards.org/"
+    }
+  }
+}

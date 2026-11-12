@@ -1,0 +1,23 @@
+{
+  "intro": "The centre of our week is Sunday worship. This is where you can find the weekly rhythm of the church, plus any special gatherings once their details are confirmed.",
+  "weekly": {
+    "title": "Worship Service",
+    "recurrence": "Every Sunday",
+    "time": "9:00AM",
+    "description": "Christ-centred worship and Scripture-based expository preaching at IOI Boulevard, Puchong."
+  },
+  "specialEvents": [],
+  "placeholders": [
+    {
+      "title": "Special gatherings",
+      "status": "to-confirm",
+      "text": "Dates for special events, shared meals and church-wide gatherings will be listed here once confirmed."
+    },
+    {
+      "title": "Children's Library Story Time",
+      "status": "to-confirm",
+      "text": "The next Story Time session is being confirmed. Message us if you would like to be kept informed."
+    }
+  ],
+  "calendarNote": "Every Sunday in this calendar is a worship gathering at 9:00AM. Special events will appear here when their details are confirmed."
+}

@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SundayCard from '../components/SundayCard.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+import site from '../content/site.json';
+import events from '../content/events.json';
+
+const description =
+  'The weekly rhythm of CDPC Puchong: worship every Sunday at 9:00AM at IOI Boulevard, Puchong, plus special gatherings as details are confirmed.';
+
+type SpecialEvent = { title: string; date: string; text: string };
+const specialEvents = events.specialEvents as SpecialEvent[];
+
+const now = new Date();
+const year = now.getFullYear();
+const month = now.getMonth();
+const monthLabel = new Intl.DateTimeFormat('en-MY', {
+  month: 'long',
+  year: 'numeric',
+}).format(now);
+
+const firstWeekday = new Date(year, month, 1).getDay();
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+const cells: (number | null)[] = [
+  ...Array.from({ length: firstWeekday }, () => null),
+  ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
+];
+while (cells.length % 7 !== 0) cells.push(null);
+
+const weeks: (number | null)[][] = [];
+for (let index = 0; index < cells.length; index += 7) {
+  weeks.push(cells.slice(index, index + 7));
+}
+
+const sundayCount = Array.from({ length: daysInMonth }, (_, index) => index + 1).filter(
+  (day) => new Date(year, month, day).getDay() === 0,
+).length;
+
+const weeksOf = [
+  { label: 'Sunday', value: events.weekly.time, detail: 'Worship Service' },
+  { label: 'Every week', value: events.weekly.recurrence, detail: 'Same time, same place' },
+  { label: 'Where', value: 'IOI Boulevard', detail: '7th Floor, Unit B, 01' },
+];
+---
+
+<BaseLayout title="Events" description={description}>
+  <PageHero
+    eyebrow="Events & calendar"
+    title="A weekly rhythm, and room for more."
+    intro={events.intro}
+    breadcrumbs={[{ label: 'Events' }]}
+  >
+    <SundayCard slot="aside" />
+  </PageHero>
+
+  <section class="section" aria-labelledby="calendar-title">
+    <div class="container-page">
+      <div class="section-top">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">This month</p>
+          <h2 class="h2" id="calendar-title">{monthLabel}</h2>
+          <p class="text-[0.85rem] leading-relaxed text-[var(--ink-faint)]">
+            {sundayCount} Sundays together at 9:00AM.
+          </p>
+        </div>
+        <p class="max-w-sm text-[0.8rem] leading-relaxed text-[var(--ink-faint)]" data-reveal>
+          {events.calendarNote}
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-12">
+        <div class="min-w-0 lg:col-span-8" data-reveal>
+          <div class="calendar-card">
+            <div class="calendar-card__head">
+              <p class="calendar-card__title">{monthLabel}</p>
+              <p class="calendar-legend">Worship at 9:00AM</p>
+            </div>
+            <p class="calendar-hint" id="calendar-hint">
+              Swipe to see the full week <span aria-hidden="true">→</span>
+            </p>
+            <div
+              class="calendar-wrap"
+              role="region"
+              aria-label={`Worship calendar for ${monthLabel}`}
+              aria-describedby="calendar-hint"
+              tabindex="0"
+            >
+              <table class="calendar">
+                <caption class="visually-hidden">Worship gatherings and events for {monthLabel}</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Sun</th>
+                    <th scope="col">Mon</th>
+                    <th scope="col">Tue</th>
+                    <th scope="col">Wed</th>
+                    <th scope="col">Thu</th>
+                    <th scope="col">Fri</th>
+                    <th scope="col">Sat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    weeks.map((week) => (
+                      <tr>
+                        {week.map((day, weekdayIndex) =>
+                          day ? (
+                            <td
+                              class:list={[
+                                { 'is-service': weekdayIndex === 0 },
+                              ]}
+                            >
+                              <time datetime={`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`}>
+                                {day}
+                              </time>
+                              {weekdayIndex === 0 && (
+                                <>
+                                  <span class="cal-service-label">9AM</span>
+                                  <span class="visually-hidden">Worship Service at 9:00AM</span>
+                                </>
+                              )}
+                            </td>
+                          ) : (
+                            <td aria-hidden="true"></td>
+                          ),
+                        )}
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="mt-4 text-[0.75rem] leading-relaxed text-[var(--ink-faint)]">
+            <!-- TODO: confirm with church — the calendar is generated at build time and shows the current month. Special events will be added when dates are confirmed. -->
+            This calendar shows the month the site was last built. Special events will
+            appear once their details are confirmed.
+          </p>
+        </div>
+
+        <div class="lg:col-span-4">
+          <div class="rounded-[22px] border border-[var(--line)] bg-[var(--card)] p-6 md:p-7" data-reveal>
+            <p class="eyebrow">Every week</p>
+            <h3 class="mt-4 font-display text-[1.8rem] leading-[1.08] tracking-[-0.03em]">
+              {events.weekly.title}
+            </h3>
+            <p class="mt-3 text-[0.9rem] leading-relaxed text-[var(--ink-soft)]">
+              {events.weekly.description}
+            </p>
+            <dl class="mt-6 border-t border-[var(--line)]">
+              {
+                weeksOf.map((item) => (
+                  <div class="grid grid-cols-[100px_1fr] gap-4 border-b border-[var(--line)] py-3.5">
+                    <dt class="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-[var(--ink-faint)]">
+                      {item.label}
+                    </dt>
+                    <dd>
+                      <span class="block text-[0.9rem] font-semibold">{item.value}</span>
+                      <span class="mt-0.5 block text-[0.76rem] text-[var(--ink-faint)]">
+                        {item.detail}
+                      </span>
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+            <a class="btn btn--primary mt-6 w-full" href="/visit">
+              Plan your visit
+              <Icon name="arrow-right" size={16} />
+            </a>
+            <a
+              class="mt-4 flex min-h-11 items-center justify-center gap-2 text-[0.82rem] font-semibold text-[var(--ink-soft)] transition-colors hover:text-[var(--accent)]"
+              href={site.contact.whatsapp}
+              target="_blank"
+              rel="noopener"
+            >
+              <Icon name="message-circle" size={15} />
+              Ask about this month
+              <span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm bg-[var(--paper-2)]" aria-labelledby="happenings-title">
+    <div class="container-page">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Beyond Sunday</p>
+        <h2 class="h2" id="happenings-title">What else is happening?</h2>
+        <p class="lead">
+          Special gatherings will be listed here as soon as their details are confirmed.
+          There is nothing to sign up for until then.
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-3 md:grid-cols-2">
+        {
+          events.placeholders.map((placeholder, index) => (
+            <div data-reveal style={`--delay: ${index * 70}ms`}>
+              <InfoCard
+                icon={index === 0 ? 'calendar' : 'library'}
+                title={placeholder.title}
+                status={placeholder.status as 'confirmed' | 'to-confirm' | 'partly-confirmed'}
+                text={placeholder.text}
+              />
+            </div>
+          ))
+        }
+      </div>
+
+      {
+        specialEvents.length > 0 && (
+          <div class="mt-6 grid gap-3 md:grid-cols-2">
+            {specialEvents.map((event) => (
+              <article class="card p-7">
+                <p class="eyebrow">{event.date}</p>
+                <h3 class="mt-3 font-display text-[1.6rem] tracking-[-0.03em]">{event.title}</h3>
+                <p class="mt-2 text-[0.9rem] leading-relaxed text-[var(--ink-soft)]">{event.text}</p>
+              </article>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="mt-9 flex flex-wrap items-center gap-5" data-reveal>
+        <a
+          class="text-link"
+          href={site.contact.whatsapp}
+          target="_blank"
+          rel="noopener"
+        >
+          <Icon name="message-circle" size={16} />
+          Ask what is coming up
+          <span class="sr-only"> (opens in a new tab)</span>
+        </a>
+        <a class="text-link" href="/childrens-library">
+          Children's Library &amp; Story Time
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="You are welcome"
+    title="The best way to know what Sunday is like is to come."
+    text="Join us at 9:00AM at IOI Boulevard, Puchong. We would love to meet you."
+  />
+</BaseLayout>

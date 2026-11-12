@@ -1,0 +1,24 @@
+{
+  "pastor": {
+    "name": "Josh Ng",
+    "role": "Pastor"
+  },
+  "elders": [
+    "Lee Han Meng",
+    "Victor Selvarajah",
+    "Rodney Toh",
+    "Joseph Tan"
+  ],
+  "deacons": [
+    "Andrew Goh",
+    "Lee Yew Kong",
+    "Lee Chun Chung",
+    "Hon Sir Neng",
+    "Ivan Se Hoo",
+    "Enoch Chew",
+    "Isaac Khoo",
+    "Cassandra Chung"
+  ],
+  "intro": "CDPC Puchong is served by Pastor Josh Ng, together with elders and deacons who help care for the life of the church.",
+  "portraitNote": "Portraits and short introductions are being prepared. In the meantime, please message the church if you would like to be connected with someone."
+}

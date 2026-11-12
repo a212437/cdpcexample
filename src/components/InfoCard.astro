@@ -1,0 +1,42 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  icon: string;
+  title: string;
+  text: string;
+  status?: 'confirmed' | 'to-confirm' | 'partly-confirmed';
+  href?: string;
+  linkLabel?: string;
+}
+
+const { icon, title, text, status = 'confirmed', href, linkLabel } = Astro.props;
+
+const statusLabel =
+  status === 'to-confirm'
+    ? 'Being confirmed'
+    : status === 'partly-confirmed'
+      ? 'Some details soon'
+      : null;
+---
+
+<article class="info-card">
+  <div class="info-card__top">
+    <span class="icon-badge">
+      <Icon name={icon} size={21} />
+    </span>
+    {statusLabel && <span class="status-chip">{statusLabel}</span>}
+  </div>
+  <div>
+    <h3 class="info-card__title">{title}</h3>
+    <p class="info-card__text mt-2">{text}</p>
+    {
+      href && linkLabel && (
+        <a class="text-link mt-3" href={href}>
+          {linkLabel}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      )
+    }
+  </div>
+</article>

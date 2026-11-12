@@ -1,0 +1,24 @@
+---
+interface Props {
+  name: string;
+  role: string;
+  tone?: number;
+}
+const { name, role, tone = 1 } = Astro.props;
+const initials = name
+  .split(' ')
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((part) => part[0])
+  .join('')
+  .toUpperCase();
+const tones = ['', 'monogram--clay', 'monogram--gold', 'monogram--forest'];
+---
+
+<article class="leader-card">
+  <div>
+    <p class="leader-card__role">{role}</p>
+    <h3 class="leader-card__name">{name}</h3>
+  </div>
+  <span class:list={['monogram', tones[tone % tones.length]]} aria-hidden="true">{initials}</span>
+</article>

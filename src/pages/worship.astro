@@ -1,0 +1,170 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SundayCard from '../components/SundayCard.astro';
+import InfoCard from '../components/InfoCard.astro';
+import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
+import site from '../content/site.json';
+import worship from '../content/worship.json';
+import worshipImage from '../assets/images/worship-placeholder.jpg';
+
+const description =
+  'Worship at CDPC Puchong: Christ-centred worship, Scripture-based expository preaching and grace-enabled spirituality, Sundays at 9:00AM in Bandar Puchong Jaya.';
+
+const detailCards = [
+  {
+    icon: 'music',
+    title: worship.music.heading,
+    status: worship.music.status,
+    text: worship.music.text,
+  },
+  {
+    icon: 'play',
+    title: worship.online.heading,
+    status: worship.online.status,
+    text: worship.online.text,
+  },
+  {
+    icon: 'library',
+    title: worship.children.heading,
+    status: 'confirmed',
+    text: worship.children.text,
+    href: '/childrens-library',
+    linkLabel: 'Explore the library',
+  },
+];
+---
+
+<BaseLayout title="Worship" description={description}>
+  <PageHero
+    eyebrow="Sunday worship"
+    title="Worship that centres on Christ."
+    intro={worship.intro}
+    breadcrumbs={[{ label: 'Worship' }]}
+  >
+    <SundayCard slot="aside" />
+  </PageHero>
+
+  <section class="section" aria-labelledby="worship-word-title">
+    <div class="container-page">
+      <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
+        <figure class="figure lg:col-span-6" data-reveal>
+          <div class="figure__media aspect-portrait">
+            <Picture
+              src={worshipImage}
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              widths={[480, 720, 960]}
+              sizes="(min-width: 1024px) 46vw, 100vw"
+              alt="Abstract artwork of sunlight falling across an arched sanctuary wall"
+              loading="eager"
+              quality={82}
+              decoding="async"
+            />
+          </div>
+          <span class="figure__frame" aria-hidden="true"></span>
+          <figcaption class="figure__caption">
+            <span>Gathered in the light</span>
+            <span>Placeholder artwork</span>
+          </figcaption>
+        </figure>
+
+        <div class="lg:col-span-5 lg:col-start-8" data-reveal style="--delay: 100ms">
+          <p class="eyebrow">At the centre</p>
+          <blockquote class="pullquote mt-6">
+            {site.word}
+          </blockquote>
+          <p class="mt-7 text-[0.95rem] leading-relaxed text-[var(--ink-soft)]">
+            Worship is our response to the God who has first spoken and first loved us. We
+            come to hear his Word, to sing and pray together, and to be shaped by grace.
+          </p>
+          <a class="text-link mt-7" href="/beliefs">
+            The story behind our worship
+            <Icon name="arrow-right" size={16} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-[var(--paper-2)]" aria-labelledby="pillars-title">
+    <div class="container-page">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">What you will find</p>
+        <h2 class="h2" id="pillars-title">A simple, centred rhythm.</h2>
+        <p class="lead">
+          We do not gather to be impressed by one another. We gather to turn our attention
+          to Jesus, together.
+        </p>
+      </div>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {
+          worship.pillars.map((pillar, index) => (
+            <article class="card p-7 md:p-8" data-reveal style={`--delay: ${index * 70}ms`}>
+              <span class="font-display text-[0.85rem] italic text-[var(--accent)]">
+                {pillar.number}
+              </span>
+              <h3 class="mt-4 font-display text-[1.55rem] leading-[1.1] tracking-[-0.03em]">
+                {pillar.title}
+              </h3>
+              <p class="mt-3 text-[0.92rem] leading-relaxed text-[var(--ink-soft)]">
+                {pillar.text}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="mt-10 flex flex-wrap items-center gap-5 border-t border-[var(--line)] pt-7" data-reveal>
+        <a class="btn btn--primary" href="/visit">
+          What a first Sunday is like
+          <Icon name="arrow-right" size={16} />
+        </a>
+        <p class="text-[0.8rem] text-[var(--ink-faint)]">
+          Sundays at 9:00AM · 7th Floor, IOI Boulevard
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="worship-details-title">
+    <div class="container-page">
+      <div class="section-top">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">A little more detail</p>
+          <h2 class="h2" id="worship-details-title">Before you come.</h2>
+        </div>
+        <a class="text-link" href="/visit#questions" data-reveal>
+          All visiting questions
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </div>
+
+      <div class="grid gap-3 md:grid-cols-3">
+        {
+          detailCards.map((card, index) => (
+            <div data-reveal style={`--delay: ${index * 70}ms`}>
+              <InfoCard
+                icon={card.icon}
+                title={card.title}
+                status={card.status as 'confirmed' | 'to-confirm' | 'partly-confirmed'}
+                text={card.text}
+                href={card.href}
+                linkLabel={card.linkLabel}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="This Sunday"
+    title="Come and see."
+    text="You are welcome to join us exactly as you are. If you would like to say hello first, message us and we will help you plan."
+  />
+</BaseLayout>
